@@ -1,4 +1,4 @@
-C     PROGRAM FREE STOCHASTIC MUSIC (FORTRAN IV)                        XEN    6
+C     PROGRAM FREE STOCHASTIC MUSIC  (FORTRAN IV)                       XEN    6
 C                                                                       XEN    7
 C     GLOSSARY OF THE PRINCIPAL ABBREVIATIONS                           XEN    8
 C
@@ -11,13 +11,13 @@ C     OF THE SLIDING TONES ( GLISSANDI )                                XEN   14
 C     ALIM - MAXIMUM LIMIT OF SEQUENCE DURATION A                       XEN   15
 C     (AMAX(I),I=1,KTR) TABLE OF AN EXPRESSION ENTERING INTO THE        XEN   16
 C     CALCULATION OF THE NOTE LENGTH IN PART 8                          XEN   17
-C     BF - DYNAMIC FORM NUMBER, THE LIST IS ESTABLISHED INDEPENDENTLY   XEN   18
+C     BF - DYNAMIC FORM NUMBER. THE LIST IS ESTABLISHED INDEPENDENTLY   XEN   18
 C     OF THIS PROGRAM AND IS SUBJECT TO MODIFICATION                    XEN   19
 C     DELTA - THE RECIPROCAL OF THE MEAN DENSITY OF SOUND EVENTS DURING XEN   20
 C     A SEQUENCE OF DURATION A                                          XEN   21
 C     (E(I,J),I=1,KTR,J=1,KTE) - PROBABILITIES OF THE KTR TIMBRE CLASSESXEN   22
-C     INTRODUCED AS INPUT DATA, DEPENDING ON THE CLASS NUMBER I=KR      XEN   23
-C     AND ON THE POWER J=U OBTAINED FROM V3*EXPF(U)=DA                  XEN   24
+C     INTRODUCED AS INPUT DATA, DEPENDING ON THE CLASS NUMBER I=KR AND  XEN   23
+C     ON THE POWER J=U OBTAINED FROM V3*EXPF(U)=DA                      XEN   24
 C     EPSI - EPSILON FOR ACCURACY IN CALCULATING PN AND E(I,J),WHICH    XEN   25
 C     IT IS ADVISABLE TO RETAIN.                                        XEN   26
 C     (GN(I,J),I=1,KTR,J=1,KTS) - TABLE OF THE GIVEN LENGTH OF BREATH   XEN   27
@@ -37,13 +37,13 @@ C     KTE - POWER OF THE EXPONENTIAL COEFFICIENT E SUCH THAT            XEN   40
 C     DA(MAX)=V3*(E**(KTE-1))                                           XEN   41
 C     KTR - NUMBER OF TIMBRE CLASSES                                    XEN   42
 C     KW - MAXIMUM NUMBER OF JW                                         XEN   43
-C     KTEST1,TAV1,ETC. - EXPRESSIONS USEFUL IN CALCULATING HOW LONG THE XEN   44
+C     KTEST1,TAV1,ETC - EXPRESSIONS USEFUL IN CALCULATING HOW LONG THE  XEN   44
 C     VARIOUS PARTS OF THE PROGRAM WILL RUN.                            XEN   45
 C     KT1 - ZERO IF THE PROGRAM IS BEING RUN, NONZERO DURING DEBUGGING  XEN   46
 C     KT2 - NUMBER OF LOOPS, EQUAL TO 15 BY ARBITRARY DEFINITION.       XEN   47
-C     (MODI(IX8),IX8=7,1) AUXILIARY FUNCTION TO INTERPOLATE VALUES IN   XEN   48
+C     (MODI(IX8),IX8=7,1)  AUXILIARY FUNCTION TO INTERPOLATE VALUES IN  XEN   48
 C     THE TETA(256) TABLE (SEE PART 7)                                  XEN   49
-C     NA - NUMBER OF SOUNDS CALCULATED FOR THE SEQUENCE A (NA=DA*A)     XEN   50
+C     NA - NUMBER OF SOUNDS CALCULATED FOR THE SEQUENCE A(NA=DA*A)      XEN   50
 C     (NT(I),I=1,KTR) NUMBER OF INSTRUMENTS ALLOCATED TO EACH OF THE    XEN   51
 C     KTR TIMBRE CLASSES.                                               XEN   52
 C     (PN(I,J),I=1,KTR,J=1,KTS),(KTS=NT(I),I=1,KTR) TABLE OF PROBABILITYXEN   53
@@ -55,9 +55,9 @@ C     CHOOSE THE CLASS KR BY COMPARING IT TO A RANDOM NUMBER X1 (SEE    XEN   58
 C     PART 3, LOOP 380 AND PART 5, LOOP 430).                           XEN   59
 C     SINA - SUM OF THE COMPUTED NOTES IN THE NEW CLOUDS NA, ALWAYS LESSXEN   60
 C     THAN GTNS ( SEE TEST IN PART 10 ).                                XEN   61
-C     SQPI - SQUARE ROOT OF PI (3.14159...)                             XEN   62
+C     SQPI - SQUARE ROOT OF PI ( 3.14159...)                            XEN   62
 C     TA - SOUND ATTACK TIME ABCISSA.                                   XEN   63
-C     TETA(256) - TABLE OF THE 256 VALUES OF TEH INTEGRAL OF THE NORMAL XEN   64
+C     TETA(256) - TABLE OF THE 256 VALUES OF THE INTEGRAL OF THE NORMAL XEN   64
 C     DISTRIBUTION CURVE WHICH IS USEFUL IN CALCULATING GLISSANDO SPEED XEN   65
 C     AND SOUND EVENT DURATION.                                         XEN   66
 C     VIGL - GLISSANDO SPEED (VITESSE GLISSANDO), WHICH CAN VARY AS, BE XEN   67
@@ -73,8 +73,8 @@ C                                                                       XEN   76
 C     READ CONSTANTS AND TABLES                                         XEN   78
 C                                                                       XEN   77
       DIMENSION Q(12),S(12),E(12,12),PN(12,50),SPN(12,50),NT(12),       XEN   79
-     1HAMIN(12,50),HAMAX(12,50),HBMIN(12,50),HBMAX(12,50),GN(12,50),H(12XEN   80
-     2,50),TETA(256),VIGL(3),MODI(7),Z1(8),Z2(8),ALFA(3),AMAX(12)       XEN   81
+     *HAMIN(12,50),HAMAX(12,50),HBMIN(12,50),HBMAX(12,50),GN(12,50),H(12XEN   80
+     *,50),TETA(256),VIGL(3),MODI(7),Z1(8),Z2(8),ALFA(3),AMAX(12)       XEN   81
 C                                                                       XEN   82
 C                                                                       XEN   83
 C                                                                       XEN   84
@@ -82,41 +82,41 @@ C                                                                       XEN   84
       DO 10 IX=1,7                                                      XEN   86
       IX8=8-IX                                                          XEN   87
       MODI(IX8)=I                                                       XEN   88
- 10   I=I+1                                                             XEN   89
+   10 I=I+1                                                             XEN   89
 C                                             	                      XEN   90
       READ 20,(TETA(I),I=1,256)                                         XEN   91
- 20   FORMAT(12F6.6)                                                    XEN   92
+   20 FORMAT(12F6.6)                                                    XEN   92
       READ 30,(Z1(I),Z2(I),I=1,8)                                       XEN   93
- 30   FORMAT(6(F3.2,F9.8)/F3.2,F9.8,E6.2,F9.8)                          XEN   94
+   30 FORMAT(6(F3.2,F9.8)/F3.2,F9.8,E6.2,F9.8)                          XEN   94
       PRINT 40,TETA,Z1,Z2                                               XEN   95
- 40   FORMAT('1  THE TETA TABLE = ',/,21(12F10.6,/),4F10.6,/////,       XEN   96
-     1' THE Z1 TABLE = ',/,7F6.2,E12.3,///,' THE Z2 TABLE = ',/,8F14.8,/XEN   97
-     21H1)                                                              XEN   98
+   40 FORMAT('1  THE TETA TABLE = ',/,21(12F10.6,/),4F10.6,/////,       XEN   96
+     *' THE Z1 TABLE = ',/,7F6.2,E12.3,///,' THE Z2 TABLE = ',/,8F14.8,/XEN   97
+     *1H1)                                                              XEN   98
       READ 50,DELTA,V3,A10,A20,A17,A30,A35,BF,SQPI,EPSI,VITLIM,ALEA,   AXEN   99
-     1LIM                                                               XEN  100
- 50   FORMAT(F3.0,F3.3,5F3.1,F2.0,F8.7,F8.8,F4.2,F8.8,F5.2)             XEN  114
+     *LIM                                                               XEN  100
+   50 FORMAT(F3.0,F3.3,5F3.1,F2.0,F8.7,F8.8,F4.2,F8.8,F5.2)             XEN  114
       READ 60,KT1,KT2,KW,KNL,KTR,KTE,KR1,GTNA,GTNS,(NT(I),I=1,KTR)      XEN  115
- 60   FORMAT(5I3,2I2,2F6.0,12I2)                                        XEN  126
+   60 FORMAT(5I3,2I2,2F6.0,12I2)                                        XEN  126
       PRINT 70,DELTA,V3,A10,A20,A17,A30,A35,BF,SQPI,EPSI,VITLIM,ALEA,  AXEN  127
      1LIM,KT1,KT2,KW,KNL,KTR,KTE,KR1,GTNA,GTNS,(I,NT(I),I=1,KTR)        XEN  128
- 70   FORMAT('1DELTA = ',F4.0,/,' V3 = ',F6.3,/,' A10 = ',F4.1,/,       XEN  129
-     1' A20 = ',F4.1,/,' A17 = ',F4.1,/,' A30 = ',F4.1,/,' A35 = ',F4.1,XEN  130
-     2/,' BF = ',F3.0,/,' SQPI =',F11.8,/,' EPSI =',F12.8,/,' VITLIM = 'XEN  131
-     3,F5.2,/,' ALEA =',F12.8,/,' ALIM = ',F6.2,/,' KT1 = ',I3,/,       XEN  132
-     4' KT2 = ',I3,/,' KW = ',I3,/,' KNL = ',I3,/,' KTR = ',I3,/,       XEN  133
-     5' KTE = ',I2,/,' KR1 = ',I2,/,' GTNA = ',F7.0,/,' GTNS = ',F7.0,  XEN  134
-     6/,12(' IN CLASS ',I2,', THERE ARE ',I2,' INSTRUMENTS.',/))        XEN  135
+   70 FORMAT('1DELTA = ',F4.0,/,' V3 = ',F6.3,/,' A10 = ',F4.1,/,       XEN  129
+     *' A20 = ',F4.1,/,' A17 = ',F4.1,/,' A30 = ',F4.1,/,' A35 = ',F4.1,XEN  130
+     */,' BF = ',F3.0,/,' SQPI =',F11.8,/,' EPSI =',F12.8,/,' VITLIM = 'XEN  131
+     *,F5.2,/,' ALEA =',F12.8,/,' ALIM = ',F6.2,/,' KT1 = ',I3,/,       XEN  132
+     *' KT2 = ',I3,/,' KW = ',I3,/,' KNL = ',I3,/,' KTR = ',I3,/,       XEN  133
+     *' KTE = ',I2,/,' KR1 = ',I2,/,' GTNA = ',F7.0,/,' GTNS = ',F7.0,  XEN  134
+     */,12(' IN CLASS ',I2,', THERE ARE ',I2,' INSTRUMENTS.',/))        XEN  135
       READ 80,KTEST3,KTEST1,KTEST2                                      XEN  136
- 80   FORMAT(5I3)                                                       XEN  141
+   80 FORMAT(5I3)                                                       XEN  141
       PRINT 90,KTEST3,KTEST1,KTEST2                                     XEN  142
- 90   FORMAT(' KTEST3 = ',I3,/,' KTEST1 = ',I3,/,' KTEST2 = ',I3)       XEN  143
+   90 FORMAT(' KTEST3 = ',I3,/,' KTEST1 = ',I3,/,' KTEST2 = ',I3)       XEN  143
 C                                                                       XEN  144
       IF(KTEST3.NE.0) PRINT 830                                         XEN  145
       R=KTE-1                                                           XEN  146
       A10=A10*SQPI                                                      XEN  147
       A20=A20*SQPI/R                                                    XEN  148
       A30=A30*SQPI                                                      XEN  149
-C     IF ALEA IS NON-ZERO, THE RANDOM NUMBER IS GENERATED FROM THE TIME XEN  150
+C     IF ALEA IS NON-ZERO,THE RANDOM NUMBER IS GENERATED FROM THE TIME  XEN  150
 C     WHEN THE FOLLOWING INSTRUCTION IS EXECUTED. IF ALEA IS NON-ZERO   XEN  151
 C     EACH RUN OF THIS PROGRAM WILL PRODUCE DIFFERENT OUTPUT DATA.      XEN  152
       IF(ALEA.NE.0.0) CALL RANFSET(TIMEF(1))                            XEN  153

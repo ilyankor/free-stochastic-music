@@ -9,4 +9,10 @@ wheels/
 # Virtual environments
 .venv
 
+# MacOS
+.DS_Store
+
+# Output files
 temp/
+fsm
+output

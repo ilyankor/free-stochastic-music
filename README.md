@@ -24,7 +24,7 @@ There are three recreations, two in Fortran and the other in Python.
    gfortran src/main.f -o fsm
    ```
 
-   To run the program using the input data from the book:
+   To run the program using the input data for Atrées (ST/10-3, 060962):
 
    ```sh
    ./fsm < ex/input.txt > output.txt
