@@ -125,90 +125,90 @@ C     EACH RUN OF THIS PROGRAM WILL PRODUCE DIFFERENT OUTPUT DATA.      XEN  152
       Y=0.0                                                             XEN  156
       KTS=NT(I)                                                         XEN  157
       READ 100,(HAMIN(I,J),HAMAX(I,J),HBMIN(I,J),HBMAX(I,J),GN(I,J),    XEN  158
-     1PN(I,J),J=1,KTS)                                                  XEN  159
- 100  FORMAT(5(5F2.0,F3.3))                                             XEN  160
+     *PN(I,J),J=1,KTS)                                                  XEN  159
+  100 FORMAT(5(5F2.0,F3.3))                                             XEN  160
       PRINT 110,I,(J,HAMIN(I,J),HAMAX(I,J),HBMIN(I,J),HBMAX(I,J),GN(I,J)XEN  161
-     1,PN(I,J),J=1,KTS)                                                 XEN  162
- 110  FORMAT(////,' IN CLASS NUMBER ',I2,/,(' FOR INSTRUMENT NO. ',I2,  XEN  163
-     1' HAMIN = ',F3.0,',HAMAX = ',F3.0,',HBMIN = ',F3.0,',HBMAX = ',   XEN  164
-     2 F3.0,',GN = ',F3.0,', AND PN = ',F6.3))                          XEN  165
+     *,PN(I,J),J=1,KTS)                                                 XEN  162
+  110 FORMAT(////,' IN CLASS NUMBER ',I2,/,(' FOR INSTRUMENT NO. ',I2,  XEN  163
+     *' HAMIN = ',F3.0,',HAMAX = ',F3.0,',HBMIN = ',F3.0,',HBMAX = ',   XEN  164
+     * F3.0,',GN = ',F3.0,', AND PN = ',F6.3))                          XEN  165
       DO 120 J=1,KTS                                                    XEN  166
       Y=Y+PN(I,J)                                                       XEN  167
- 120  SPN(I,J)=Y                                                        XEN  168
- 130  IF(ABSF(Y-1.0).GE.EPSI) CALL EXIT                                 XEN  169
+  120 SPN(I,J)=Y                                                        XEN  168
+  130 IF(ABSF(Y-1.0).GE.EPSI) CALL EXIT                                 XEN  169
 C                                                                       XEN  170
       DO 150 I=1,KTR                                                    XEN  171
       READ 140,(E(I,J),J=1,KTE)                                         XEN  172
- 140  FORMAT(12F2.2)                                                    XEN  173
- 150  PRINT 160,I,(J,E(I,J),J=1,KTE)                                    XEN  174
- 160  FORMAT(//////,' CLASS NUMBER ',I2,/,(' IN DENSITY LEVEL ',I2,     XEN  175
-     1' HAS A PROBABILITY OF ',F6.2))                                   XEN  176
+  140 FORMAT(12F2.2)                                                    XEN  173
+  150 PRINT 160,I,(J,E(I,J),J=1,KTE)                                    XEN  174
+  160 FORMAT(//////,' CLASS NUMBER ',I2,/,(' IN DENSITY LEVEL ',I2,     XEN  175
+     *' HAS A PROBABILITY OF ',F6.2))                                   XEN  176
       DO 180 J=1,KTE                                                    XEN  177
       Y=0.0                                                             XEN  178
       DO 170 I=1,KTR                                                    XEN  179
- 170  Y=Y+E(I,J)                                                        XEN  180
- 180  IF(ABSF(Y-1.0).GE.EPSI) CALL EXIT                                 XEN  181
+  170 Y=Y+E(I,J)                                                        XEN  180
+  180 IF(ABSF(Y-1.0).GE.EPSI) CALL EXIT                                 XEN  181
       DO 200 I=1,KTR                                                    XEN  182
       AMAX(I)=1.0/E(I,1)                                                XEN  183
       DO 200 J=2,KTE                                                    XEN  184
       AJ=J-1                                                            XEN  185
       AX=1.0/(E(I,J)*EXPF(AJ))                                          XEN  186
       IF (KT1.NE.0) PRINT 190,AX                                        XEN  187
- 190  FORMAT(1H ,9E12.8)                                                XEN  188
- 200  IF(AX.GT.AMAX(I)) AMAX(I)=AX                                      XEN  189
+  190 FORMAT(1H ,9E12.8)                                                XEN  188
+  200 IF(AX.GT.AMAX(I)) AMAX(I)=AX                                      XEN  189
       IF(KT1.NE.0) WRITE(2,210) AMAX                                    XEN  190
- 210  FORMAT(6E15.8)                                                    XEN  191
+  210 FORMAT(6E15.8)                                                    XEN  191
 C                                                                       XEN  192
       JW=1                                                              XEN  193
       SINA=0.0                                                          XEN  194
       IF(KTEST1.NE.0) TAV1=TIMEF(1)                                     XEN  195
- 220  NLINE=50                                                          XEN  196
+  220 NLINE=50                                                          XEN  196
 C                                                                       XEN  197
 C     PARTS 1 AND 2, DEFINE SEQUENCE A SECONDS AND CLOUD NA DURING A    XEN  198
 C                                                                       XEN  199
       KNA=0                                                             XEN  200
       K1=0                                                              XEN  201
- 230  X1=RANF(-1)                                                       XEN  202
+  230 X1=RANF(-1)                                                       XEN  202
       A=-DELTA * LOGF(X1)                                               XEN  203
       IF(A.LE.ALIM) GO TO 250                                           XEN  204
       IF(K1.GE.KT2) GO TO 240                                           XEN  205
       K1=K1+1                                                           XEN  206
       GO TO 230                                                         XEN  207
- 240  A=ALIM/2.0                                                        XEN  208
+  240 A=ALIM/2.0                                                        XEN  208
       X1=0.0                                                            XEN  209
- 250  K2=0                                                              XEN  210
- 260  X2=RANF(-1)                                                       XEN  211
+  250 K2=0                                                              XEN  210
+  260 X2=RANF(-1)                                                       XEN  211
       IF(JW.GT.1) GO TO 280                                             XEN  212
- 270  UX=R*X2                                                           XEN  213
+  270 UX=R*X2                                                           XEN  213
       GO TO 310                                                         XEN  214
- 280  IF(RANF(-1).GE.0.5) GO TO 290                                     XEN  215
+  280 IF(RANF(-1).GE.0.5) GO TO 290                                     XEN  215
       UX=UPR + R * (1.0-SQRTF(X2))                                      XEN  216
       GO TO 300                                                         XEN  217
- 290  UX=UPR - R * (1.0-SQRTF(X2))                                      XEN  218
- 300  IF((UX.GE.0.0).AND.(UX.LE.R)) GO TO 310                           XEN  219
+  290 UX=UPR - R * (1.0-SQRTF(X2))                                      XEN  218
+  300 IF((UX.GE.0.0).AND.(UX.LE.R)) GO TO 310                           XEN  219
       IF(K2.GE.KT2) GO TO 270                                           XEN  220
       K2=K2+1                                                           XEN  221
       GO TO 260                                                         XEN  222
- 310  U=UX                                                              XEN  223
+  310 U=UX                                                              XEN  223
       DA=V3*EXPF(U)                                                     XEN  224
       NA=XINTF(A * DA + 0.5) + 1                                        XEN  225
       IF (GTNA.GT.FLOATF(NA)) GO TO 330                                 XEN  226
       IF (KNA.GE.KT2) GO TO 320                                         XEN  227
       KNA=KNA+1                                                         XEN  228
       GO TO 230                                                         XEN  229
- 320  A=DELTA                                                           XEN  230
+  320 A=DELTA                                                           XEN  230
       GO TO 260                                                         XEN  231
- 330  UPR=U                                                             XEN  232
+  330 UPR=U                                                             XEN  232
       IF (KT1.EQ.0) GO TO 360                                           XEN  233
       PRINT 340,JW,KNA,K1,K2,X1,X2,A,DA,NA                              XEN  234
- 340  FORMAT(1H1,4I8,3X,4E18.8,3X,I8)                                   XEN  235
+  340 FORMAT(1H1,4I8,3X,4E18.8,3X,I8)                                   XEN  235
       NA=KT1                                                            XEN  236
       IF (KTEST3.NE.0) PRINT 350,JW,NA,A                                XEN  237
- 350  FORMAT(1H0,2I9,F10.2)                                             XEN  238
+  350 FORMAT(1H0,2I9,F10.2)                                             XEN  238
 C                                                                       XEN  239
 C     PART 3. DEFINE CONSTITUTION OF ORCHESTRA DURING SEQUENCE A        XEN  240
 C                                                                       XEN  241
- 360  SINA=SINA + FLOATF(NA)                                            XEN  242
+  360 SINA=SINA + FLOATF(NA)                                            XEN  242
       XLOGDA=U                                                          XEN  243
       XALOG=A20 *XLOGDA                                                 XEN  244
       M=XINTF(XLOGDA)                                                   XEN  245
@@ -222,12 +222,12 @@ C                                                                       XEN  241
       XM=M                                                              XEN  253
       QR=(XLOGDA-XM) * (BETA-ALFX) + ALFX                               XEN  254
       IF (KT1.NE.0) PRINT 370,XM,ALFX,BETA                              XEN  255
- 370  FORMAT(1H ,3F20.8)                                                XEN  256
+  370 FORMAT(1H ,3F20.8)                                                XEN  256
       Q(I)=QR                                                           XEN  257
       SR=SR+QR                                                          XEN  258
- 380  S(I)=SR                                                           XEN  259
+  380 S(I)=SR                                                           XEN  259
       IF (KT1.NE.0) PRINT 390,(Q(I),I=1,KTR),(S(I),I=1,KTR)             XEN  260
- 390  FORMAT(1H ,12F9.4)                                                XEN  261
+  390 FORMAT(1H ,12F9.4)                                                XEN  261
 C                                                                       XEN  262
 C     PART 4,DEFINE INSTANT TA OF EACH POINT IN SEQUENCE A              XEN  263
 C                                                                       XEN  264
@@ -236,30 +236,30 @@ C                                                                       XEN  264
       T=0.0                                                             XEN  267
       TA=0.0                                                            XEN  268
       GO TO 410                                                         XEN  269
- 400  N=N+1                                                             XEN  270
+  400 N=N+1                                                             XEN  270
       X=RANF(-1)                                                        XEN  271      
       T=-LOGF(X)/DA                                                     XEN  272      
       TA=TA+T                                                           XEN  273      
- 410  IF (KT1.NE.0) PRINT 420,N,X,T,TA                                  XEN  274
- 420  FORMAT(//,I8,3E20.8)                                              XEN  275
+  410 IF (KT1.NE.0) PRINT 420,N,X,T,TA                                  XEN  274
+  420 FORMAT(//,I8,3E20.8)                                              XEN  275
 C                                                                       XEN  276
 C     PART 5,DEFINE CLASS AND INSTRUMENT NUMBER TO EACH POINT OF A      XEN  277
 C                                                                       XEN  278
       X1=RANF(-1)                                                       XEN  279
       DO 430 I=1,KTR                                                    XEN  280
- 430  IF (X1.LE.S(I)) GO TO 440                                         XEN  281
+  430 IF (X1.LE.S(I)) GO TO 440                                         XEN  281
       I=KTR                                                             XEN  282
- 440  KTS=NT(I)                                                         XEN  283
+  440 KTS=NT(I)                                                         XEN  283
       KR=I                                                              XEN  284
       X2=RANF(-1)                                                       XEN  285
       DO 450 J=1,KTS                                                    XEN  286
       SPIEN=SPN(KR,J)                                                   XEN  287
       INSTRM=J                                                          XEN  288
- 450  IF (X2.LE.SPIEN) GO TO 460                                        XEN  289
+  450 IF (X2.LE.SPIEN) GO TO 460                                        XEN  289
       INSTRM=KTS                                                        XEN  290
- 460  PIEN=PN(KR,INSTRM)                                                XEN  291
+  460 PIEN=PN(KR,INSTRM)                                                XEN  291
       IF (KT1.NE.0) PRINT 470,X1,S(KR),KR,X2,SPIEN,INSTRM               XEN  292
- 470  FORMAT( 1H ,2E20.8,I6,2E20.8,I6 )                                 XEN  293
+  470 FORMAT( 1H ,2E20.8,I6,2E20.8,I6 )                                 XEN  293
 C                                                                       XEN  294
 C     PART 6,DEFINE PITCH HN FOR EACH POINT OF SEQUENCE A               XEN  295
 C                                                                       XEN  296
@@ -267,31 +267,31 @@ C                                                                       XEN  296
       IF (INSTRM.GE.KR1) GO TO 490                                      XEN  298
       HX=0.0                                                            XEN  299
       GO TO 560                                                         XEN  300
- 480  IF (KR.LT.7) GO TO 490                                            XEN  301
+  480 IF (KR.LT.7) GO TO 490                                            XEN  301
       HSUP=HBMAX(KR,INSTRM)                                             XEN  302
       HINF=HBMIN(KR,INSTRM)                                             XEN  303
       GO TO 500                                                         XEN  304
- 490  HSUP=HAMAX(KR,INSTRM)                                             XEN  305
+  490 HSUP=HAMAX(KR,INSTRM)                                             XEN  305
       HINF=HAMIN(KR,INSTRM)                                             XEN  306
- 500  HM=HSUP-HINF                                                      XEN  307
+  500 HM=HSUP-HINF                                                      XEN  307
       HPR=H(KR,INSTRM)                                                  XEN  308
       K=0                                                               XEN  309
       IF (HPR.LE.0.0) GO TO 520                                         XEN  310
- 510  X=RANF(-1)                                                        XEN  311
+  510 X=RANF(-1)                                                        XEN  311
       IF (N.GT.1) GO TO 530                                             XEN  312
- 520  HX=HINF+HM*X RANF(-1)                                             XEN  313
+  520 HX=HINF+HM*X RANF(-1)                                             XEN  313
       GO TO 560                                                         XEN  314
- 530  IF(RANF(-1).GE.0.5) GO TO 540                                     XEN  315
+  530 IF(RANF(-1).GE.0.5) GO TO 540                                     XEN  315
       HX=HPR+HM * ( 1.0-SQRTF(X))                                       XEN  316
       GO TO 550                                                         XEN  317
- 540  HX=HPR-HM * (1.0-SQRTF(X))                                        XEN  318
- 550  IF((HX.GE.HINF).AND.(HX.LE.HSUP)) GO TO 560                       XEN  319
+  540 HX=HPR-HM * (1.0-SQRTF(X))                                        XEN  318
+  550 IF((HX.GE.HINF).AND.(HX.LE.HSUP)) GO TO 560                       XEN  319
       IF (K.GE.KT2) GO TO 520                                           XEN  320
       K=K+1                                                             XEN  321
       GO TO 510                                                         XEN  322
- 560  H(KR,INSTRM)=HX                                                   XEN  323
+  560 H(KR,INSTRM)=HX                                                   XEN  323
       IF (KT1.NE.0) PRINT 570,K,X,HX                                    XEN  324
- 570  FORMAT(1H ,I6,2E20.8)                                             XEN  325
+  570 FORMAT(1H ,I6,2E20.8)                                             XEN  325
 C                                                                       XEN  326
 C     PART 7,DEFINE SPEED VIGL TO EACH POINT OF A                       XEN  327
 C                                                                       XEN  328
@@ -303,37 +303,37 @@ C                                                                       XEN  328
       X2=0.0                                                            XEN  334
       XLAMBDA=0.0                                                       XEN  335
       GO TO 740                                                         XEN  336
- 580  KX=1                                                              XEN  337
- 590  X1=RANF(-1)                                                       XEN  338
+  580 KX=1                                                              XEN  337
+  590 X1=RANF(-1)                                                       XEN  338
       IF (X1-0.9997) 600,650,680                                        XEN  339
- 600  I=128                                                             XEN  340
+  600 I=128                                                             XEN  340
       DO 630 IX=1,7                                                     XEN  341
       IF(TETA(I)-X1) 610,640,620                                        XEN  342
- 610  I=I+MODI(IX)                                                      XEN  343
+  610 I=I+MODI(IX)                                                      XEN  343
       GO TO 630                                                         XEN  344
- 620  I=I-MODI(IX)                                                      XEN  345
- 630  CONTINUE                                                          XEN  346
+  620 I=I-MODI(IX)                                                      XEN  345
+  630 CONTINUE                                                          XEN  346
       IF(TETA(I)-X1) 670,640,660                                        XEN  347
- 640  XLAMBDA=FLOATF(I-1)/100.0                                         XEN  348
+  640 XLAMBDA=FLOATF(I-1)/100.0                                         XEN  348
       GO TO (720,760), KX                                               XEN  349
- 650  XLAMBDA=2.55                                                      XEN  350
+  650 XLAMBDA=2.55                                                      XEN  350
       GO TO (720,760),KX                                                XEN  351
- 660  I=I-1                                                             XEN  352
- 670  TX1=TETA(I)                                                       XEN  353
+  660 I=I-1                                                             XEN  352
+  670 TX1=TETA(I)                                                       XEN  353
       XLAMBDA=(FLOATF(I-1)+(X1-TX1)/(TETA(I+1)-TX1))/100.0              XEN  354
       GO TO ( 720,760 ), KX                                             XEN  355
- 680  DO 690 I=2,7                                                      XEN  356
+  680 DO 690 I=2,7                                                      XEN  356
       TX1=Z2(I)                                                         XEN  357
       IF(X1-TX1) 700,710,690                                            XEN  358
- 690  CONTINUE                                                          XEN  359
+  690 CONTINUE                                                          XEN  359
       I=8                                                               XEN  360
       TX1=1.0                                                           XEN  361
- 700  TX2=Z1(I)                                                         XEN  362
+  700 TX2=Z1(I)                                                         XEN  362
       XLAMBDA=TX2-((TX1-X1)/(TX1-Z2(I-1)))*(TX2-Z1(I-1))                XEN  363
       GO TO ( 720,760 ), KX                                             XEN  364
- 710  XLAMBDA=Z1(I)                                                     XEN  365
+  710 XLAMBDA=Z1(I)                                                     XEN  365
       GO TO( 720,760 ), KX                                              XEN  366
- 720  ALFA(1)=A10+XALOG                                                 XEN  367
+  720 ALFA(1)=A10+XALOG                                                 XEN  367
       ALFA(3)=A30-XALOG                                                 XEN  368
       X2=RANF(-1)                                                       XEN  369
       ALFA(2)=A17+A35*X2                                                XEN  370
@@ -341,9 +341,9 @@ C                                                                       XEN  328
       VIGL(I)=INTF(ALFA(I)*XLAMBDA+0.5)                                 XEN  372
       IF (VIGL(I).LT.0.0) VIGL(I)=-VIGL(I)                              XEN  373
       IF (VIGL(I).GT.VITLIM) VIGL(I)=VITLIM                             XEN  374
- 730  IF (RANF(-1).LT.0.5) VIGL(I)=-VIGL(I)                             XEN  375
- 740  IF(KT1.NE.0) PRINT 750,X1,X2,XLAMBDA,VIGL                         XEN  376
- 750  FORMAT(1H ,6E19.8)                                                XEN  377
+  730 IF (RANF(-1).LT.0.5) VIGL(I)=-VIGL(I)                             XEN  375
+  740 IF(KT1.NE.0) PRINT 750,X1,X2,XLAMBDA,VIGL                         XEN  376
+  750 FORMAT(1H ,6E19.8)                                                XEN  377
 C                                                                       XEN  378
 C     PART 8,DEFINE DURATION FOR EACH POINT OF A                        XEN  379
 C                                                                       XEN  380
@@ -357,16 +357,16 @@ C                                                                       XEN  380
       SIGMA=GE/4.0                                                      XEN  388
       KX=2                                                              XEN  389
       GO TO 590                                                         XEN  390
- 760  TAU=SIGMA*XLAMBDA*1.4142                                          XEN  391
+  760 TAU=SIGMA*XLAMBDA*1.4142                                          XEN  391
       X2=RANF(-1)                                                       XEN  392
       IF (X2.GE.0.5) GO TO 770                                          XEN  393
       XDUR=XMU+TAU                                                      XEN  394
       GO TO 790                                                         XEN  395
- 770  XDUR=XMU-TAU                                                      XEN  396
+  770 XDUR=XMU-TAU                                                      XEN  396
       IF (XDUR.GE.0.0) GO TO 790                                        XEN  397
- 780  XDUR=0.0                                                          XEN  398
- 790  IF(KT1.NE.0)PRINT 800,ZMAX,XMU,SIGMA,X1,XLAMBDA,X2,XDUR           XEN  399
- 800  FORMAT(1H ,5E15.8,E11.4,E15.8)                                    XEN  400
+  780 XDUR=0.0                                                          XEN  398
+  790 IF(KT1.NE.0)PRINT 800,ZMAX,XMU,SIGMA,X1,XLAMBDA,X2,XDUR           XEN  399
+  800 FORMAT(1H ,5E15.8,E11.4,E15.8)                                    XEN  400
 C                                                                       XEN  401
 C     PART 9,DEFINE INTENSITY FORM TO EACH POINT OF A                   XEN  402
 C                                                                       XEN  403
@@ -376,28 +376,28 @@ C                                                                       XEN  403
       IF (NLINE.EQ.KNL) GO TO 820                                       XEN  407
       NLINE=1                                                           XEN  408
       GO TO 900                                                         XEN  409
- 810  NLINE=NLINE+1                                                     XEN  410
+  810 NLINE=NLINE+1                                                     XEN  410
       GO TO 900                                                         XEN  411
- 820  PRINT 830                                                         XEN  412
- 830  FORMAT(1H1)                                                       XEN  413
+  820 PRINT 830                                                         XEN  412
+  830 FORMAT(1H1)                                                       XEN  413
       NLINE=0                                                           XEN  414
       GO TO 900                                                         XEN  415
- 840  IF (NLINE.GE.KNL) GO TO 850                                       XEN  416
+  840 IF (NLINE.GE.KNL) GO TO 850                                       XEN  416
       NLINE=NLINE+1                                                     XEN  417
       GO TO 880                                                         XEN  418
- 850  PRINT 860,JW,A,NA,(Q(I),I=1,KTR)                                  XEN  419
- 860  FORMAT('1  JW=',I3,4X,'A=',F8.2,4X,'NA=',I6,4X,'Q(I)=',12(F4.2,'/'XEN  420
-     1),//)                                                             XEN  421
+  850 PRINT 860,JW,A,NA,(Q(I),I=1,KTR)                                  XEN  419
+  860 FORMAT('1  JW=',I3,4X,'A=',F8.2,4X,'NA=',I6,4X,'Q(I)=',12(F4.2,'/'XEN  420
+     *),//)                                                             XEN  421
       PRINT 870                                                         XEN  422
- 870  FORMAT(6X,'N',8X,'START',5X,'CLASS',4X,'INSTRM',4X,'PITCH',6X,    XEN  423
-     1'GLISS1',4X,'GLISS2',4X,'GLISS3',8X,'DURATION',5X,'DYNAM')        XEN  424
+  870 FORMAT(6X,'N',8X,'START',5X,'CLASS',4X,'INSTRM',4X,'PITCH',6X,    XEN  423
+     *'GLISS1',4X,'GLISS2',4X,'GLISS3',8X,'DURATION',5X,'DYNAM')        XEN  424
       NLINE=1                                                           XEN  425
- 880  PRINT 890,N,TA,KR,INSTRM,HX,(VIGL(I),I=1,3),XDUR,IFORM            XEN  426
- 890  FORMAT(1H ,I7,F12.2,I9,I8,F11.1,F13.1,2F10.1,F14.2,I11)           XEN  427
+  880 PRINT 890,N,TA,KR,INSTRM,HX,(VIGL(I),I=1,3),XDUR,IFORM            XEN  426
+  890 FORMAT(1H ,I7,F12.2,I9,I8,F11.1,F13.1,2F10.1,F14.2,I11)           XEN  427
 C                                                                       XEN  428
 C     PART 10,REPEAT SAME DEFINITIONS FOR ALL POINTS OF A               XEN  429
 C                                                                       XEN  430
- 900  IF (N.LT.NA) GO TO 400                                            XEN  431
+  900 IF (N.LT.NA) GO TO 400                                            XEN  431
 C                                                                       XEN  432
 C     PART 11, REPEAT SEQUENCES A                                       XEN  433
 C                                                                       XEN  434
@@ -406,11 +406,11 @@ C                                                                       XEN  434
       TAP2=TAP2/FLOATF(NA)                                              XEN  437
       PRINT 750,TAP2                                                    XEN  438
 C                                                                       XEN  439
- 910  IF (JW.GE.KW) GO TO 930                                           XEN  440
- 920  JW=JW+1                                                           XEN  441
+  910 IF (JW.GE.KW) GO TO 930                                           XEN  440
+  920 JW=JW+1                                                           XEN  441
       IF (GTNS.GT.SINA) GO TO 220                                       XEN  442
- 930  IF (KTEST1.EQ.0) CALL EXIT                                        XEN  443
- 940  TAP1=TIMEF(-1)-TAV1                                               XEN  444
+  930 IF (KTEST1.EQ.0) CALL EXIT                                        XEN  443
+  940 TAP1=TIMEF(-1)-TAV1                                               XEN  444
       TAP1=TAP1/FLOATF(KW)                                              XEN  445
       PRINT 750,TAP1                                                    XEN  446
 C                                                                       XEN  447
