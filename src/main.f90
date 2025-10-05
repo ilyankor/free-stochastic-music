@@ -1,146 +1,284 @@
 program fsm
     implicit none
 
-    !-----------------------------------------!
-    ! GLOSSARY OF THE PRINCIPAL ABBREVIATIONS !
-    !---------------------------------------- !
-
-    ! modi: auxiliary function to interpolate values in the theta table (see part 7)
-    ! theta: erf(x) for x = 0.00, 0.01, ... 2.55
-    ! z1, z2: z2 = erf(x) for x in z1
-
-    ! delta: the reciprocal of the mean density of sound events during a sequence of duration A
-    ! v3: minimum cloud density DA
-    ! a10, a20, a17, a30, a35: numbers for glissando calculation
-    ! bf: dynamic form number. the list is established independently of this program and is subject to modification
-    ! sqpi: square root of pi
-    ! epsi: epsilon for accuracy in calculating pn and e(i,j)
-    ! vitlim: maximum limiting glissando speed (semitones/second)
-    ! alea: parameter used to alter the result of a second run with the same input data
-    ! alim: maximum limit of sequence duration A
-
-    ! kt1: 0 if the program is being run, nonzero during debugging
-    ! kt2: number of loops, arbitrarily set to 15
-    ! kw: maximum number of jw
-    ! knl: number of lines per page of the printed result, set to 50
-    ! ktr: number of timbre classes
-    ! kte: da(max) = v3 * e ** (kte - 1)
-    ! kr1: number in the class kr=1 used for percussion or instruments without a definite pitch
-    ! gtna: greatest number of notes in the sequence of duration A
-    ! gtns: greatest number of notes in kw loops
-    ! nt: number of instruments in each of the ktr timbre classes
-
-! C     A - DURATION OF EACH SEQUENCE IN SECONDS                          XEN    9
-! C     ALFA(3) - THREE EXPRESSIONS ENTERING INTO THE THREE SPEED VALUES  XEN   13
-! C     OF THE SLIDING TONES ( GLISSANDI )                                XEN   14
-! C     (AMAX(I),I=1,KTR) TABLE OF AN EXPRESSION ENTERING INTO THE        XEN   16
-! C     CALCULATION OF THE NOTE LENGTH IN PART 8                          XEN   17
-! C     (E(I,J),I=1,KTR,J=1,KTE) - PROBABILITIES OF THE KTR TIMBRE CLASSESXEN   22
-! C     INTRODUCED AS INPUT DATA, DEPENDING ON THE CLASS NUMBER I=KR AND  XEN   23
-! C     ON THE POWER J=U OBTAINED FROM V3*EXPF(U)=DA                      XEN   24
-! C     (GN(I,J),I=1,KTR,J=1,KTS) - TABLE OF THE GIVEN LENGTH OF BREATH   XEN   27
-! C     FOR EACH INSTRUMENT, DEPENDING ON CLASS I AND INSTRUMENT J        XEN   28
-! C     (HAMIN(I,J),HAMAX(I,J),HBMIN(I,J),HBMAX(I,J),I=1,KTR,J=1,KTS)     XEN   31
-! C     TABLE OF INSTRUMENT COMPASS LIMITS, DEPENDING ON TIMBRE CLASS I   XEN   32
-! C     AND INSTRUMENT J. TEST INSTRUCTION 480 IN PART 6 DETERMINES       XEN   33
-! C     WHETHER THE HA OR THE HB TABLE IS FOLLOWED. THE NUMBER 7 IS       XEN   34
-! C     ARBITRARY.                                                        XEN   35
-! C     JW - ORDINAL NUMBER OF THE SEQUENCE COMPUTED.                     XEN   36
-! C     KTEST1,TAV1,ETC - EXPRESSIONS USEFUL IN CALCULATING HOW LONG THE  XEN   44
-! C     VARIOUS PARTS OF THE PROGRAM WILL RUN.                            XEN   45
-! C     NA - NUMBER OF SOUNDS CALCULATED FOR THE SEQUENCE A(NA=DA*A)      XEN   50
-! C     (NT(I),I=1,KTR) NUMBER OF INSTRUMENTS ALLOCATED TO EACH OF THE    XEN   51
-! C     KTR TIMBRE CLASSES.                                               XEN   52
-! C     (PN(I,J),I=1,KTR,J=1,KTS),(KTS=NT(I),I=1,KTR) TABLE OF PROBABILITYXEN   53
-! C     OF EACH INSTRUMENT OF THE CLASS I.                                XEN   54
-! C     (Q(I),I=1,KTR) PROBABILITIES OF THE KTR TIMBRE CLASSES, CONSIDEREDXEN   55
-! C     AS LINEAR FUNCTIONS OF THE DENSITY DA.                            XEN   56
-! C     (S(I),I=1,KTR) SUM OF THE SUCCESSIVE Q(I) PROBABILITIES, USED TO  XEN   57
-! C     CHOOSE THE CLASS KR BY COMPARING IT TO A RANDOM NUMBER X1 (SEE    XEN   58
-! C     PART 3, LOOP 380 AND PART 5, LOOP 430).                           XEN   59
-! C     SINA - SUM OF THE COMPUTED NOTES IN THE NEW CLOUDS NA, ALWAYS LESSXEN   60
-! C     THAN GTNS ( SEE TEST IN PART 10 ).                                XEN   61
-! C     SQPI - SQUARE ROOT OF PI ( 3.14159...)                            XEN   62
-! C     TA - SOUND ATTACK TIME ABCISSA.                                   XEN   63
-! C     VIGL - GLISSANDO SPEED (VITESSE GLISSANDO), WHICH CAN VARY AS, BE XEN   67
-! C     INDEPENDENT OF, OR VARY INVERSELY AS THE DENSITY OF THE SEQUENCE, XEN   68
-! C     THE ACTUAL MODE OF VARIATION EMPLOYED REMAINING THE SAME FOR THE  XEN   69
-! C     ENTIRE SEQUENCE (SEE PART 7).                                     XEN   70
-
     !-----------------------!
     ! VARIABLE DECLARATIONS !
     !-----------------------!
-
-    integer :: i
-    integer :: r
 
     integer :: modi(7)
     real :: theta(256)
     real :: z1(8), z2(8)
 
     real :: delta, v3, a10, a20, a17, a30, a35, bf, sqpi, epsi, vitlim, alea, alim
-
     integer :: kt1, kt2, kw, knl, ktr, kte, kr1
     real :: gtna, gtns
     integer :: nt(12) ! since ktr = 12
 
     integer :: ktest1, ktest2, ktest3
 
+    ! ktr = 12, j = 12 and j = 50 are arbitrary
+    integer :: kts
+    real :: hamin(12,50), hamax(12,50), hbmin(12,50), hbmax(12,50), gn(12,50), pn(12,50), spn(12,50)
+    real :: e(12,12)
+    real :: amax(12)
+
+
+    ! others, unordered
+    real :: vigl(3), alpha(3)
+    real :: q(12), s(12)
+    real :: h(12, 50)
+
+    integer :: jw
+    real :: sina
+    real :: a
+
+    ! iterators and temporary variables
+    integer :: i, j, r, kna, k1, k2
+    real :: y, x1, x2, upr, ux, tmp, u, da, na
+
     !---------------------------!
     ! READ CONSTANTS AND TABLES !
     !---------------------------!
 
-    ! normal distribution
+    call load_input()
+    call disp_input()
+
+    ! create modi
     modi = (/ (8 - i, i = 1, 7) /)
-    read(*, '(12F6.6)') (theta(i), i = 1, 256)
-    read(*, '(6(F3.2, F9.8), /, F3.2, F9.8, E6.2, F9.8)') (z1(i), z2(i), i = 1, 8)
 
-!!!!! PRINT THE TABLES
-!       PRINT 40,TETA,Z1,Z2                                               XEN   95
-!    40 FORMAT('1  THE TETA TABLE = ',/,21(12F10.6,/),4F10.6,/////,       XEN   96
-!      *' THE Z1 TABLE = ',/,7F6.2,E12.3,///,' THE Z2 TABLE = ',/,8F14.8,/XEN   97
-!      *1H1)                                                              XEN   98
-
-    ! constants and musical parameters
-    read(*, '(F3.0, F3.3, 5F3.1, F2.0, F8.7, F8.8, F4.2, F8.8, F5.2)') &
-        delta, v3, a10, a20, a17, a30, a35, bf, sqpi, epsi, vitlim, alea, alim
-    read(*, '(5I3, 2I2, 2F6.0, 12I2)') &
-        kt1, kt2, kw, knl, ktr, kte, kr1, gtna, gtns, (nt(i), i = 1, ktr)
-
-!!!!! PRINT THE CONSTANTS
-!       PRINT 70,DELTA,V3,A10,A20,A17,A30,A35,BF,SQPI,EPSI,VITLIM,ALEA,  AXEN  127
-!      1LIM,KT1,KT2,KW,KNL,KTR,KTE,KR1,GTNA,GTNS,(I,NT(I),I=1,KTR)        XEN  128
-!    70 FORMAT('1DELTA = ',F4.0,/,' V3 = ',F6.3,/,' A10 = ',F4.1,/,       XEN  129
-!      *' A20 = ',F4.1,/,' A17 = ',F4.1,/,' A30 = ',F4.1,/,' A35 = ',F4.1,XEN  130
-!      */,' BF = ',F3.0,/,' SQPI =',F11.8,/,' EPSI =',F12.8,/,' VITLIM = 'XEN  131
-!      *,F5.2,/,' ALEA =',F12.8,/,' ALIM = ',F6.2,/,' KT1 = ',I3,/,       XEN  132
-!      *' KT2 = ',I3,/,' KW = ',I3,/,' KNL = ',I3,/,' KTR = ',I3,/,       XEN  133
-!      *' KTE = ',I2,/,' KR1 = ',I2,/,' GTNA = ',F7.0,/,' GTNS = ',F7.0,  XEN  134
-!      */,12(' IN CLASS ',I2,', THERE ARE ',I2,' INSTRUMENTS.',/))        XEN  135
-
-    ! more constants
-    read(*, '(5I3)') ktest3, ktest1, ktest2
-
-!!!!! PRINT THE CONSTANTS
-!       PRINT 90,KTEST3,KTEST1,KTEST2                                     XEN  142
-!    90 FORMAT(' KTEST3 = ',I3,/,' KTEST1 = ',I3,/,' KTEST2 = ',I3)       XEN  143
-
-!!!!! PRINT NEW PAGE IF KTEST3 NEQ 0
-!       IF(KTEST3.NE.0) PRINT 830                                         XEN  145
-!  830  FORMAT(1H1)                                                       XEN  413
-
+    ! compute constants
     r = kte - 1
     a10 = a10 * sqpi
     a20 = a20 * sqpi / r
     a30 = a30 * sqpi
 
-! C     IF ALEA IS NON-ZERO,THE RANDOM NUMBER IS GENERATED FROM THE TIME  XEN  150
-! C     WHEN THE FOLLOWING INSTRUCTION IS EXECUTED. IF ALEA IS NON-ZERO   XEN  151
-! C     EACH RUN OF THIS PROGRAM WILL PRODUCE DIFFERENT OUTPUT DATA.      XEN  152
-    !   IF(ALEA.NE.0.0) CALL RANFSET(TIMEF(1))                            XEN  153
+    ! (if alea neq 0, set seed)
 
+    jw = 1
+    sina = 0.0
 
+    !----------------------------------------------------------------!
+    ! PARTS 1 AND 2. DEFINE SEQUENCE A SECONDS AND CLOUD NA DURING A !
+    !----------------------------------------------------------------!
 
-    
+    kna = 0
+    k1 = 0
+    k2 = 0
+    do
+        ! choose a
+        if (kna .ge. kt2) then
+            a = delta
+        else
+            do
+                call random_number(x1)
+                a = - delta * log(x1)
+
+                if (a .le. alim) exit
+
+                if (k1 .ge. kt2) then
+                    a = 0.5 * alim
+                    x1 = 0.0
+                    exit
+                end if
+
+                k1 = k1 + 1
+            end do
+        end if
+
+        ! choose u
+        if (jw .gt. 1) then
+            do
+                call random_number(x2)
+                call random_number(tmp)
+
+                if (tmp .ge. 0.5) then
+                    ux = upr - r * (1.0 - sqrt(x2))
+                else
+                    ux = upr + r * (1.0 - sqrt(x2))
+                end if
+
+                if ((ux .ge. 0.0) .and. (ux .le. r)) exit
+
+                if (k2 .ge. kt2) then
+                    ux = r * x2
+                    exit
+                end if
+
+                k2 = k2 + 1
+            end do
+        else
+            call random_number(x2)
+            ux = r * x2
+        end if
+
+        u = ux
+        da = v3 * exp(u)
+        na = int(a * da + 0.5) + 1
+
+        if (gtna .gt. real(na)) then
+            upr = u
+            exit
+        end if
+
+        kna = kna + 1
+    end do
+
+    ! debug print
+    if (kt1 .ne. 0) then
+        call page_break()
+        write(*, '(4i8, 3x, 4e18.8, 3x, i8)') jw, kna, k1, k2, x1, x2, a, da, na
+        na = kt1
+    else if (ktest3 .ne. 0) then
+        write(*, '(/, /, 2i9, f10.2)') jw, na, a
+    end if
+
+    !------------------------------------------------------------!
+    ! PART 3. DEFINE CONSTITUTION OF ORCHESTRA DURING SEQUENCE A !
+    !------------------------------------------------------------!
+
+    contains
+
+    ! read input data
+    subroutine load_input()
+
+        ! normal distribution
+        read(*, '(12f6.6)') (theta(i), i = 1, 256)
+        read(*, '(6(f3.2, f9.8), /, f3.2, f9.8, e6.2, f9.8)') (z1(i), z2(i), i = 1, 8)
+
+        ! constants and musical parameters
+        read(*, '(f3.0, f3.3, 5f3.1, f2.0, f8.7, f8.8, f4.2, f8.8, f5.2)') &
+            delta, v3, a10, a20, a17, a30, a35, bf, sqpi, epsi, vitlim, alea, alim
+        read(*, '(5i3, 2i2, 2f6.0, 12i2)') &
+            kt1, kt2, kw, knl, ktr, kte, kr1, gtna, gtns, (nt(i), i = 1, ktr)
+
+        ! debugging constants
+        read(*, '(5i3)') ktest3, ktest1, ktest2
+
+        ! instruments
+        do i = 1, ktr
+            kts = nt(i)
+            read(*, '(5(5f2.0,f3.3))') &
+                (hamin(i,j), hamax(i,j), hbmin(i,j), hbmax(i,j), gn(i,j), pn(i,j), j = 1, kts)
+            read(*, '(12f2.2)') (e(i,j), j = 1, kte)
+        end do
+
+    end subroutine load_input
+
+    ! display input data
+    subroutine disp_input()
+
+        ! normal distribution
+        write(*, '( &
+            " THE THETA TABLE = ", /, 21(12f10.6, /), 4f10.6, /////, &
+            " THE Z1 TABLE = ", /, 7f6.2, e12.3, ///, &
+            " THE Z2 TABLE = ", /, 8f14.8, / &
+        )') theta, z1, z2
+
+        !!! INSERT NEW PAGE !!!
+
+        ! constants and musical parameters
+        write(*, '( &
+            " DELTA = ", f4.0, /, " V3 = ", f6.3, /, " A10 = ", f4.1, /, &
+            " A20 = ", f4.1, /, " A17 = ", f4.1, /, " A30 = ", f4.1, /, " A35 = ", f4.1, /, &
+            " Bf = ", f3.0, /, " SQPI = ", f11.8, /, " EPSI = ",f12.8, /, &
+            " VITLIM = ", f5.2, /, " ALEA = ", f12.8, /, " ALIM = ", f6.2, /, &
+            " KT1 = ", i3, /, " KT2 = ", i3, /, " KW = ", i3, /," KNL = ", i3, /," KTR = ", i3, /, &
+            " KTE = ", i2, /, " KR1 = ", i2, /, " GTNA = ", f7.0, /, " GTNS = ", f7.0, /, &
+            12(" IN CLASS ", i2, ", THERE ARE ", i2, " INSTRUMENTS.", /) &
+        )') delta, v3, a10, a20, a17, a30, a35, bf, sqpi, epsi, vitlim, alea, alim, &
+            kt1, kt2, kw, knl, ktr, kte, kr1, gtna, gtns, (i, nt(i), i = 1, ktr)   
+
+        write(*, '( &
+            " KTEST3 = ", i3, /, " KTEST1 = ", i3, /, " KTEST2 = ", i3) &
+        ') ktest3, ktest1, ktest2
+
+        !!! INSERT NEW PAGE !!!
+
+        ! instruments
+        
+    end subroutine disp_input
+
+    ! simulate a page break from '1H1'
+    subroutine page_break()
+        write(*, '( &
+            10(/), &
+            "------------------------------ END PAGE ------------------------------", &
+            20(/), &
+            "------------------------------ NEW PAGE ------------------------------", &
+            10(/) &
+        )')
+    end subroutine page_break
+
+    ! get the current time of day from system clock in milliseconds
+    function get_current_time() result(time)
+        implicit none
+
+        integer :: hmsms(8)
+        integer :: time
+
+        call date_and_time(values=hmsms)
+        time = 3600000*hmsms(5) + 60000*hmsms(6) + 1000*hmsms(7) + hmsms(8)
+
+    end function get_current_time
 
 end program fsm
+
+!-----------------------------------------!
+! GLOSSARY OF THE PRINCIPAL ABBREVIATIONS !
+!-----------------------------------------!
+
+! modi: auxiliary function to interpolate values in the theta table (see part 7)
+! theta: erf(x) for x = 0.00, 0.01, ..., 2.56 (rounding errors near end)
+! z1, z2: z2 = erf(x) for x in z1
+
+! delta: the reciprocal of the mean density of sound events during a sequence of duration A
+! v3: minimum cloud density DA
+! a10, a20, a17, a30, a35: numbers for glissando calculation
+! bf: dynamic form number. the list is established independently of this program and is subject to modification
+! sqpi: square root of pi
+! epsi: epsilon for accuracy in calculating pn and e(i,j)
+! vitlim: maximum limiting glissando speed (semitones/second)
+! alea: parameter used to alter the result of a second run with the same input data
+! alim: maximum limit of sequence duration A
+
+! kt1: 0 if the program is being run, nonzero during debugging
+! kt2: number of loops, arbitrarily set to 15
+! kw: maximum number of jw
+! knl: number of lines per page of the printed result, set to 50
+! ktr: number of timbre classes
+! kte: da(max) = v3 * e ** (kte - 1)
+! kr1: number in the class kr=1 used for percussion or instruments without a definite pitch
+! gtna: greatest number of notes in the sequence of duration A
+! gtns: greatest number of notes in kw loops
+! nt: number of instruments in each of the ktr timbre classes
+
+! ktest1, tav1, etc.: expressions useful in calculating how long the various parts of the program will run
+
+! hamin, hamax, hbmin, hbmax: table of instrument compass limits, depending on timbre class i and instrument j.
+!                             test instruction 480 in part 6 determines whether the ha or the hb table is followed.
+!                             the number 7 is arbitrary.
+! gn: table of the given length of breath for each instrument, depending on class i and instrument j
+! pn: table of probability of each instrument of the class i
+! e: probabilities of the ktr timbre classes introduced as input data,
+!    depending on the class number i = kr and on the power j = u obtained from v3 * exp(u) = da
+
+! C     (AMAX(I),I=1,KTR) TABLE OF AN EXPRESSION ENTERING INTO THE        XEN   16
+! C     CALCULATION OF THE NOTE LENGTH IN PART 8                          XEN   17
+! C     ALFA(3) - THREE EXPRESSIONS ENTERING INTO THE THREE SPEED VALUES  XEN   13
+! C     OF THE SLIDING TONES ( GLISSANDI )                                XEN   14
+! C     JW - ORDINAL NUMBER OF THE SEQUENCE COMPUTED.                     XEN   36
+! C     SINA - SUM OF THE COMPUTED NOTES IN THE NEW CLOUDS NA, ALWAYS LESSXEN   60
+! C     THAN GTNS ( SEE TEST IN PART 10 ).                                XEN   61
+! C     A - DURATION OF EACH SEQUENCE IN SECONDS                          XEN    9
+! C     NA - NUMBER OF SOUNDS CALCULATED FOR THE SEQUENCE A(NA=DA*A)      XEN   50
+! C     (Q(I),I=1,KTR) PROBABILITIES OF THE KTR TIMBRE CLASSES, CONSIDEREDXEN   55
+! C     AS LINEAR FUNCTIONS OF THE DENSITY DA.                            XEN   56
+! C     (S(I),I=1,KTR) SUM OF THE SUCCESSIVE Q(I) PROBABILITIES, USED TO  XEN   57
+! C     CHOOSE THE CLASS KR BY COMPARING IT TO A RANDOM NUMBER X1 (SEE    XEN   58
+! C     PART 3, LOOP 380 AND PART 5, LOOP 430).                           XEN   59
+
+! C     TA - SOUND ATTACK TIME ABCISSA.                                   XEN   63
+! C     VIGL - GLISSANDO SPEED (VITESSE GLISSANDO), WHICH CAN VARY AS, BE XEN   67
+! C     INDEPENDENT OF, OR VARY INVERSELY AS THE DENSITY OF THE SEQUENCE, XEN   68
+! C     THE ACTUAL MODE OF VARIATION EMPLOYED REMAINING THE SAME FOR THE  XEN   69
+! C     ENTIRE SEQUENCE (SEE PART 7).                                     XEN   70

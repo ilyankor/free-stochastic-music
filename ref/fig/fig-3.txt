@@ -26,7 +26,7 @@ C     GTNA - GREATEST NUMBER OF NOTES IN THE SEQUENCE OF DURATION A     XEN   29
 C     GTNS - GREATEST NUMBER OF NOTES IN KW LOOPS                       XEN   30
 C     (HAMIN(I,J),HAMAX(I,J),HBMIN(I,J),HBMAX(I,J),I=1,KTR,J=1,KTS)     XEN   31
 C     TABLE OF INSTRUMENT COMPASS LIMITS, DEPENDING ON TIMBRE CLASS I   XEN   32
-C     AND INSTRUMENT J. TEST INSTRUCTION 480 IN PART 6 DETERMINES       XEN   33
+C     AND INSTRUMENT J.  TEST INSTRUCTION 480 IN PART 6 DETERMINES      XEN   33
 C     WHETHER THE HA OR THE HB TABLE IS FOLLOWED. THE NUMBER 7 IS       XEN   34
 C     ARBITRARY.                                                        XEN   35
 C     JW - ORDINAL NUMBER OF THE SEQUENCE COMPUTED.                     XEN   36
@@ -83,7 +83,7 @@ C                                                                       XEN   84
       IX8=8-IX                                                          XEN   87
       MODI(IX8)=I                                                       XEN   88
    10 I=I+1                                                             XEN   89
-C                                             	                      XEN   90
+C                                                                       XEN   90
       READ 20,(TETA(I),I=1,256)                                         XEN   91
    20 FORMAT(12F6.6)                                                    XEN   92
       READ 30,(Z1(I),Z2(I),I=1,8)                                       XEN   93
@@ -237,9 +237,9 @@ C                                                                       XEN  264
       TA=0.0                                                            XEN  268
       GO TO 410                                                         XEN  269
   400 N=N+1                                                             XEN  270
-      X=RANF(-1)                                                        XEN  271      
-      T=-LOGF(X)/DA                                                     XEN  272      
-      TA=TA+T                                                           XEN  273      
+      X=RANF(-1)                                                        XEN  271
+      T=-LOGF(X)/DA                                                     XEN  272
+      TA=TA+T                                                           XEN  273
   410 IF (KT1.NE.0) PRINT 420,N,X,T,TA                                  XEN  274
   420 FORMAT(//,I8,3E20.8)                                              XEN  275
 C                                                                       XEN  276
