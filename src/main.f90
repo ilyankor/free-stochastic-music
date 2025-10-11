@@ -28,13 +28,13 @@ program fsm
     real :: q(12), s(12)
     real :: h(12, 50)
 
-    integer :: jw
+    integer :: jw, na
     real :: sina
     real :: a
 
     ! iterators and temporary variables
-    integer :: i, j, r, kna, k1, k2
-    real :: y, x1, x2, upr, ux, tmp, u, da, na
+    integer :: i, j, r, kna, k1, k2, m, m1, m2
+    real :: y, x1, x2, upr, ux, tmp, u, da, xlogda, xalog, sr, alfx, beta, qr, xm
 
     !---------------------------!
     ! READ CONSTANTS AND TABLES !
@@ -128,14 +128,54 @@ program fsm
         call page_break()
         write(*, '(4i8, 3x, 4e18.8, 3x, i8)') jw, kna, k1, k2, x1, x2, a, da, na
         na = kt1
-    else if (ktest3 .ne. 0) then
-        write(*, '(/, /, 2i9, f10.2)') jw, na, a
+    
+        if (ktest3 .ne. 0) then
+            write(*, '(//, 2i9, f10.2)') jw, na, a
+        end if
     end if
 
     !------------------------------------------------------------!
     ! PART 3. DEFINE CONSTITUTION OF ORCHESTRA DURING SEQUENCE A !
     !------------------------------------------------------------!
 
+    sina = sina + real(na)
+    xlogda = u
+    xalog = a20 * xlogda
+
+    m = int(xlogda)
+
+    if ((m + 2) .gt. kte) m = kte - 2
+
+    sr = 0.0
+    m1 = m + 1
+    m2 = m + 2
+
+    do i = 1, ktr
+        alfx = e(i, m1)
+        beta = e(i, m2)
+        xm = m
+        qr = (xlogda - xm) * (beta - alfx) + alfx
+
+        if (kt1 .ne. 0) then
+            call page_break
+            write(*, '(3f20.8)') xm, alfx, beta
+        end if
+
+        q(i) = qr
+        sr = sr + qr
+        s(i) = sr
+    end do
+
+    if (kt1 .ne. 0) then
+        call page_break
+        write(*, '(12f9.4)') (q(i), s(i), i = 1, ktr)
+    end if
+
+    !-------------------------------------------------------!
+    ! PART 4. DEFINE INSTANT TA OF EACH POINT IN SEQUENCE A !
+    !-------------------------------------------------------!
+
+    
     contains
 
     ! read input data
@@ -174,13 +214,13 @@ program fsm
             " THE Z2 TABLE = ", /, 8f14.8, / &
         )') theta, z1, z2
 
-        !!! INSERT NEW PAGE !!!
+        call page_break()
 
         ! constants and musical parameters
         write(*, '( &
             " DELTA = ", f4.0, /, " V3 = ", f6.3, /, " A10 = ", f4.1, /, &
             " A20 = ", f4.1, /, " A17 = ", f4.1, /, " A30 = ", f4.1, /, " A35 = ", f4.1, /, &
-            " Bf = ", f3.0, /, " SQPI = ", f11.8, /, " EPSI = ",f12.8, /, &
+            " BF = ", f3.0, /, " SQPI = ", f11.8, /, " EPSI = ",f12.8, /, &
             " VITLIM = ", f5.2, /, " ALEA = ", f12.8, /, " ALIM = ", f6.2, /, &
             " KT1 = ", i3, /, " KT2 = ", i3, /, " KW = ", i3, /," KNL = ", i3, /," KTR = ", i3, /, &
             " KTE = ", i2, /, " KR1 = ", i2, /, " GTNA = ", f7.0, /, " GTNS = ", f7.0, /, &
@@ -192,7 +232,7 @@ program fsm
             " KTEST3 = ", i3, /, " KTEST1 = ", i3, /, " KTEST2 = ", i3) &
         ') ktest3, ktest1, ktest2
 
-        !!! INSERT NEW PAGE !!!
+        call page_break()
 
         ! instruments
         
@@ -200,18 +240,15 @@ program fsm
 
     ! simulate a page break from '1H1'
     subroutine page_break()
-        write(*, '( &
-            10(/), &
-            "------------------------------ END PAGE ------------------------------", &
-            20(/), &
-            "------------------------------ NEW PAGE ------------------------------", &
-            10(/) &
-        )')
+
+        write(*,'(//, a, 10(/), a, //)') &
+            "------------------------------------------------------- END PAGE -------------------------------------------------------", &
+            "------------------------------------------------------- NEW PAGE -------------------------------------------------------"
+
     end subroutine page_break
 
     ! get the current time of day from system clock in milliseconds
     function get_current_time() result(time)
-        implicit none
 
         integer :: hmsms(8)
         integer :: time
