@@ -168,7 +168,7 @@ program fsm
 
     if (kt1 .ne. 0) then
         call page_break
-        write(*, '(12f9.4)') (q(i), s(i), i = 1, ktr)
+        write(*, '(12f9.4)') (q(i), i = 1, ktr), (s(i), i = 1, ktr)
     end if
 
     !-------------------------------------------------------!
