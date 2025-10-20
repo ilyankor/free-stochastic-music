@@ -139,155 +139,153 @@ An excerpt from the first flow chart is shown in \hyperref[fig:flow-chart]{Fig. 
 
 The statement of the thesis of \textit{Achorripsis} receives its first machine-oriented interpretation in the following manner:
 
-1. \textit{The work consists of a succession of sequences or movements each \(a_i\) seconds long}.
-   Their durations are totally independent (asymmetric) but have a fixed mean duration, which is introduced in the form of a parameter.
-   These durations and their stochastic succession are given by the formula
-   \[P_{a_i} = c \mathrm{e}^{-ca_i} \, \mathrm{d}a_i \tag{See Appendix I.}\]
+\begin{enumerate}
+    \item 
+        \textit{The work consists of a succession of sequences or movements each \(a_i\) seconds long}.
+        Their durations are totally independent (asymmetric) but have a fixed mean duration, which is introduced in the form of a parameter.
+        These durations and their stochastic succession are given by the formula
+        \[P_{a_i} = c \mathrm{e}^{-ca_i} \, \mathrm{d}a_i \tag{See Appendix I.}\]
+    \item
+        \textit{Definition of the mean density of the sounds during \(a_i\)}.
+        During a sequence sounds are emitted from several sonic sources.
+        If the total number of these sounds or points during a sequence is \(N_{a_i}\), the mean density of this point-cluster is \(N_{a_i} / a_i\) sounds/sec.
+        In general, for a given instrumental ensemble this density has limits that depend on the number of instrumentalists, the nature of their instruments, and the technical difficulties of performance.
+        For a large orchestra the upper limit is of the order of \(150\) sounds/sec.
+        The lower limit \((\mathrm{V}3)\) is arbitrary and positive.
+        We choose \((\mathrm{V}3) = 0.11\) sounds/sec.
+        Previous experiments led us to adopt a logarithmic progression for the density sensation with a number between \(2\) and \(3\) as its base.
+        We adopted \(\mathrm{e} = 2.71827\).
+        Thus the densities are included between \((\mathrm{V}3)\mathrm{e}^0\) and \((\mathrm{V}3)\mathrm{e}^R\) sounds/sec., which we can draw on a line graduated logarithmically (base \(\mathrm{e}\)).\footnote{\((\mathrm{V}3)\mathrm{e}^R\) must be equal to the upper limit, e.g., to \(150\) sounds/sec. in the case of a large orchestra.}
+        As our purpose is total independence, we attribute to each of the sequences \(a_i\) calculated in \text{1.} a density represented by a point drawn at random from the portion of the line mentioned above.
+        However a certain concern for continuity leads us to temper the independence of the densities among sequences \(a_i\); to this end we introduce a certain ``memory'' from sequence to sequence in the following manner:
 
-2. *Definition of the mean density of the sounds during \(a_i\)*.
-   During a sequence sounds are emitted from several sonic sources.
-   If the total number of these sounds or points during a sequence is \(N_{a_i}$, the mean density of this point cluster is $N_{a_i} / a_i\) sounds/sec.
-   In general, for a given instrumental ensemble this density has limits that depend on the number of instrumentalists, the nature of their instruments, and the technical difficulties of performance.
-   For a large orchestra the upper limit is of the order of \(150\) sounds/sec.
-   The lower limit \((V3)\) is arbitrary and positive.
-   We choose \((V3) = 0.11\) sounds/sec.
-   Previous experiments led us to adopt a logarithmic progression for the density sensation with a number between 2 and 3 as its base.
-   We adopted \(\mathrm{e} = 2.71827\).
-   Thus the densities are included between \((V3)\mathrm{e}^0\) and $(V3)\mathrm{e}^R$ sounds/sec., which we can draw on a line graduated logarithmically (base $\mathrm{e}\)).\footnote{\((\mathrm{V}3)\mathrm{e}^R\) must be equal to the upper limit, e.g., to \(150\) sounds/sec. in the case of a large orchestra.}
-   As our purpose is total independence, we attribute to each of the sequences \(a_i\) calculated in **1.** a density represented by a point drawn at random from the portion of the line mentioned above.
-   However a certain concern for continuity leads us to temper the independence of the densities among sequences \(a_i\); to this end we introduce a certain "memory" from sequence to sequence in the following manner:
+        Let \(a_{i-1}\) be a sequence of duration \(a_{i-1}\), \((\mathrm{DA})_{i-1}\) its density, and \(a_i\) the next sequence with duration \(a_i\) and density \((\mathrm{DA})_i\).
+        Density \((\mathrm{DA})_i\) will be given by the formula:
+        \[(\mathrm{DA})_i = (\mathrm{DA})_{i-1} \mathrm{e}^{\pm x}\textrm{,}\]
+        in which \(x\) is a segment of line drawn at random from a line segment \(s\) of length equal to \((R - 0)\).
+        The probability of \(x\) is given by
+        \[P_x = \frac{2}{s} \left(1 - \frac{x}{s}\right) \, \mathrm{d}x \tag{See Appendix I.}\]
+        and finally,
+        \[N_{a_i} = (\mathrm{DA})_i a_i.\]
+    \item 
+        \textit{Composition \(Q\) of the orchestra during sequence \(a_i\)}.
+        First the instruments are divided into \(r\) classes of timbres, e.g., flutes and clarinets, oboes and bassoons, brasses, bowed strings, pizzicati, col legno strokes, glissandi, wood, skin, and metal percussion instruments, etc. (See the table for \textit{Atrées}.)
+        The composition of the orchestra is stochastically conceived, i.e., the distribution of the classes is not deterministic.
+        Thus during a sequence of duration \(a_i\) it may happen that we have 80\% pizzicati, 10\% percussion, 7\% keyboard, and 3\% flute class.
+        Under actual conditions the determining factor which would condition the composition of the orchestra is density.
+        We therefore connect the orchestral composition with density by means of a special diagram.
+        An example from \textit{ST/10-1, 080262} is shown in \hyperref[fig:composition]{Fig. V-2}.
 
-   Let \(a_{i-1}$ be a sequence of duration $a_{i-1}$, $(DA)_{i-1}$ its density, and $a_i$ the next sequence with duration $a_i$ and density $(DA)_i\).
-   Density \((DA)_i\) will be given by the formula:
-   \[(DA)_i = (DA)_{i-1} \mathrm{e}^{\pm x},\]
-   in which \(x$ is a segment of line drawn at random from a line segment $s$ of length equal to $(R - 0)\).
-   The probability of \(x\) is given by
-   \[P_x = \frac{2}{s} \left(1 - \frac{x}{s}\right) dx\]
-   and finally,
-   \[N_{a_i} = (DA)_i a_i.\]
+        \begin{figure}
+            \centering
+        
+            \caption{\textit{ST/10-1, 080262}, Composition of the Orchestra}
+            % \newline \(Density = (DA)_i = 0.11 \mathrm{e}^U\), \(U = \log_e {DA/0.11}\)}
+            \label{fig:composition}
+        \end{figure}
 
-3. *Composition \(Q$ of the orchestra during sequence $a_i\)*.
-   First the instruments are divided into \(r\) classes of timbres, e.g., flutes and clarinets, oboes and bassoons, brasses, bowed strings, pizzicati, col legno strokes, glissandi, wood, skin, and metal percussion instruments, etc.
-   (See the table for Atrées.)
-   <!-- Composition of the Orchestra for Atrées (ST/10-3,060962) -->
+        Fig. V-2 is expressed by the formula
+        \[Q_r = (n-x)(e_{n,r} - e_{n+1,r}) + e_{n,r}\]
+        in which \(r =\) the number of the class, \(x = \log_\mathrm{e}{\left[(\mathrm{DA})_i/(\mathrm{V}3)\right]}\), \(n = 0, 1, 2, \dots, R\), such that \(n \leq x \leq n + 1\), and \(e_{n,r}\) and \(e_{n+1,r}\) are the probabilities of class \(r\) as a function of \(n\).
+        It goes without saying that the composition of this table is a precise task of great complexity and delicacy.
+        Once these preliminaries have been completed, we can define, one after the other, the \(N_{a_i}\) sounds of sequence \(a_i\).
+    \item
+        \textit{Definition of the moment of occurrence of the sound \(N\) within the sequence \(a_i\)}.
+        The mean density of the points or sounds to be distributed within \(a_i\) is \(k = N_{a_i} / a_i\).
+        The formula which gives the intervals separating the sound attacks is
+        \[P_t = k \mathrm{e}^{-kt} \, \mathrm{d}t. \tag{See Appendix I.}\]
+    \item
+        \textit{Attribution to the above sound of an instrument belonging to orchestra \(Q\), which has already been calculated}.
+        First class \(r\) is drawn at random with probability \(q_r\) from the orchestra ensemble calculated in 3.
+        (Consider an urn with balls of \(r\) colors in various proportions.)
+        Then from within class \(r\) the number of the instrument is drawn according to the probability \(p_n\) given by an arbitrary table (urn with balls of \(n\) colors).
+        Here also the distribution of instruments within a class is delicate and complex.
+    \item
+        \textit{Attribution of a pitch as a function of the instrument}.
+        Taking as the zero point the lowest Bb of the piano, we establish a chromatic scale in semitones of about \(85\) degrees.
+        The range \(s\) of each instrument is thus expressed by a natural number (distance).
+        But the pitch \(h_u\) of a sound is expressed by a decimal number of which the whole number part is related to a note of the chromatic scale within the instrument's range.
+        
+        Just as for the density in 2., we accept a certain memory of or dependence on the preceding pitch played by the same instrument, so that we have
+        \[h_u = h_{u-1} \pm z,\]
+        where \(z\) is given by the probability formula
+        \[P_z = \frac{2}{s} \left( 1 - \frac{z}{s} \right) \, \mathrm{d}z. \tag{See Appendix I.}\]
+        \(P_z\) is the probability of the interval \(z\) taken at random from the range \(s\), and \(s\) is expressed as the difference between the highest and lowest pitches that can be played on the instrument.
+    \item
+        \textit{Attribution of a glissando speed if class \(r\) is characterized as a glissando}.
+        The homogeneity hypotheses in Chap. I led us to the formula
+        \[f(v) = \frac{2}{a \sqrt{\pi}} \mathrm{e}^{-v^2/a^2},\]
+        and by the transformation \(v/a = u\) to its homologue:
+        \[T(u) = \frac{2}{\sqrt{\pi}} \int_0^u \mathrm{e}^{-u^2} \, \mathrm{d}u,\]
+        for which there are tables.
+        \(f(v)\) is the probability of occurrence of the speed \(v\) (which is expressed in semitones/sec.); it has a parameter \(a\), which is proportional to the standard deviation \(s\) (\(a = s \sqrt{2}\)).
 
-   The composition of the orchestra is stochastically conceived, i.e., the distribution of the classes is not deterministic.
-   Thus during a sequence of duration \(a_i\) it may happen that we have 80% pizzicati, 10% percussion, 7% keyboard, and 3% flute class.
-   Under actual conditions the determining factor which would condition the composition of the orchestra is density.
-   We therefore connect the orchestral composition with density by means of a special diagram.
-   An example from *ST/10-1, 080262* is shown in Fig. V-2.
-   <!-- Fig V-2. ST/10-1, 080262, Composition of the Orchestra -->
+        \(a\) is defined as a function of the logarithm of the density of sequence \(a_i\) by: an inversely proportional function
+        \[a = \sqrt{\pi} \left( 30 - \frac{20}{R} \log{[(\mathrm{DA})_i / (\mathrm{V3})]} \right),\]
+        or a directly proportional function
+        \[a = \sqrt{\pi} \left( 10 + \frac{20}{R} \log{[(\mathrm{DA})_i / (\mathrm{V3})]}\right),\]
+        or a function independent of density
+        \[a = 17.7 + 35k,\]
+        where \(k\) is a random number between \(0\) and \(1\).
 
-   Fig. V-2 is expressed by the formula
-   \[Q_r = (n-x)(e_{n,r} - e_{n+1,r}) + e_{n,r}\]
-   in which \(r =$ the number of the class, $x = \log_e \left[(DA_i)/(V3)\right]$, $n = 0,1,2, \dots, R$, such that $n \leq x \leq n + 1$, and $e_{n,r}$ and $e_{n+1,r}$ are the probabilities of class $r$ as a function of $n\).
+        The constants of the preceding formulae derive from the limits of the speeds that string glissandi may take.
 
-\begin{figure}
-    \centering
+        Thus for \((\mathrm{DA})_i = 145\) sounds/sec.
+        \begin{align*}
+            a &= 53.2 \ \text{semitones/sec.} \\
+            2s &= 75 \ \text{semitones/sec.}
+        \end{align*}
+        and for \((\mathrm{DA})_i = 0.13\) sounds/sec.
+        \begin{align*}
+            a &= 17.7 \ \text{semitones/sec.} \\
+            2s &= 25 \ \text{semitones/sec.}
+        \end{align*}
+    \item 
+        \textit{Attribution of a duration \(x\) to the sounds emitted}.
+        To simplify we establish a mean duration for each instrument, which is independent of tessitura and nuance.
+        Consequently we reserve the right to modify it when transcribing into traditional notation.
+        The following is the list of constraints that we take into account for the establishment of duration \(x\):
+        \begin{align*}
+            &G \text{, the maximum length of respiration or desired duration} \\
+            &(\mathrm{DA})_i \text{, the density of the sequence} \\
+            &q_r \text{, the probability of class} \ r \\
+            &p_n \text{, the probability of the instrument} \ n
+        \end{align*}
+        Then if we define \(z\) as a parameter of a sound's duration, \(z\) could be inversely proportional to the probability of the occurrence of the instrument, so that
+        \[z = \frac{1}{(\mathrm{DA})_i p_n q_r}.\]
+        \(z\) will be at its maximum when \((\mathrm{DA})_i p_n q_r\) is at its minimum, and in this case we could choose \(z_{\textrm{max}} = G\).
 
-    \caption{\textit{ST/10-1, 080262}, Composition of the Orchestra}
-    % \newline \(Density = (DA)_i = 0.11 \mathrm{e}^U\), \(U = \log_e {DA/0.11}\)}
-    \label{fig:composition}
-\end{figure}
-   
-   
-   It goes without saying that the composition of this table is a precise task of great complexity and delicacy.
-   Once these preliminaries have been completed, we can define, one after the other, the \(N_{a_i}$, sounds of sequence $a_i\).
+        Instead of letting \(z_{\textrm{max}} = G\), we shall establish a logarithmic law so as to freeze the growth of \(z\).
+        This law applies for any given value of \(z\).
+        \[z' = G \ln{z} / \ln{z_\textrm{max}}\]
 
-4. *Definition of the moment of occurence of the sound \(N$ within the sequence $a_i\)*.
-   The mean density of the points or sounds to be distributed within \(a_i$ is $k = N_{a_i} / a_i\).
-   The formula which gives the intervals separating the sound attacks is
-   \[P_t = k\mathrm{e}^{-kt} dt.\]
+        Since we admit a total independence, the distribution of the durations \(x\) will be Gaussian:
+        \[f(x) = \frac{1}{s \sqrt{2 \pi}} \mathrm{e}^{-(x - m)^2/(2s^2)},\]  
+        where \(m\) is the arithmetic mean of the durations, \(s\) the standard deviation, and
+        \begin{align*}
+            m - 4.25s &= 0 \\
+            m + 4.25s &= z'
+        \end{align*}
+        the linear system which furnishes us with the constants \(m\) and \(s\).
+        By assuming \(u = (x-m)/s\sqrt{2}\) we find the function \(T(u)\), for which we consult the tables.
 
-5. *Attribution to the above sound of an instrument belonging to orchestra \(Q\), which has already been calculated*.
-   First class \(r$ is drawn at random with probability $q_r\) from the orchestra ensemble calculated in **3.**
-   (Consider an urn with balls of \(r\) colors in various proportions.)
-   Then from within class \(r$ the number of the instrument is drawn according to the probability $p_n$ given by an arbitrary table (urn with balls of $n\) colors).
-   Here also the distribution of instruments within a class is delicate and complex.
+        Finally, the duration \(x\) of the sound will be given by the relation
+        \[x = \pm us\sqrt{2} + m.\]
 
-6. *Attribution of a pitch as a function of the instrument*.
-   Taking as the zero point the lowest MAKE A FLAT%B&#x266D; of the piano, we establish a chromatic scale in semitones of about \(85\) degrees.
-   The range \(s\) of each instrument is thus expressed by a natural number (distance).
-   But the pitch \(h_u\) of a sound is expressed by a decimal number of which the whole number part is related to a note ofthe chromatic scale within the instrument's range.
-
-   Just as for the density in **2.**, we accept a certain memory of or dependence on the preceding pitch played by the same instrument, so that we have
-   \[h_u = h_{u-1} \pm z,\]
-   where \(z\) is given by the probability formula
-   \[P_z = \frac{2}{s} \left(1 - \frac{z}{s}\right) dz.\]
-   \(P_z$ is the probability of the interval $z$ taken at random from the range $s$, and $s\) is expressed as the difference between the highest and lowest pitches that can be played on the instrument.
-
-7. *Attribution of a glissando speed if class \(r\) is characterized as a glissando*.
-   The homogeneity hypotheses in Chap. I led us to the formula
-   \[f(v) = \frac{2}{a \sqrt{\pi}} \mathrm{e}^{-v^2/a^2},\]
-   and by the transformation \(v/a = u\) to its homologue:
-   \[T(u) = \frac{2}{\sqrt{\pi}} \int_0^u \mathrm{e}^{-u^2} \, \mathrm{d}u,\]
-   for which there are tables.
-   \(f(v)\) is the probability of occurrence of the speed \(v\) (which is expressed in semitones/sec.); it has a parameter \(a\), which is proportional to the standard deviation \(s\) (\(a = s \sqrt{2}\)).
-
-   \(a\) is defined as a function of the logarithm of the density of sequence \(a_i\) by: an inversely proportional function
-   \[a = \sqrt{\pi} \left(30 - \frac{20}{R} L[(DA_i)/(V3)]\right),\]
-   or a directly proportional function
-   \[a = \sqrt{\pi} \left(10 + \frac{20}{R} L[(DA_i)/(V3)]\right),\]
-   or a function independent of density
-   \[a = 17.7 + 35k,\]
-   where \(k$ is a random number between $0$ and $1\).
-
-   The constants of the preceding formulae derive from the limits of the speeds that string glissandi may take.
-
-   Thus for \((DA)_i = 145\) sounds/sec.
-   \(\)\begin{align*}
-   a &= 53.2 \ \textrm{semitones/sec.} \\
-   2s &= 75 \ \textrm{semitones/sec.} \\
-   \end{align*}\(\)
-   and for for \((DA)_i = 0.13\) sounds/sec.
-   \(\)\begin{align*}
-   a &= 17.7 \ \textrm{semitones/sec.} \\
-   2s &= 25 \ \textrm{semitones/sec.} \\
-   \end{align*}\(\)
-
-8. *Attribution of a duration \(x\) to the sounds emitted*.
-   To simplify we establish a mean duration for each instrument, which is independent of tessitura and nuance.
-   Consequently we reserve the right to modify it when transcribing into traditional notation.
-   The following is the list of constraints that we take into account for the establishment of duration \(x\):
-   \(\)\begin{align*}
-   &G \textrm{, the maximum length of respiration or desired duration} \\
-   &(DA)_i \textrm{, the the density of the sequence} \\
-   &q_r \textrm{, the probability of class} \ r \\
-   &p_n \textrm{, the probability of the instrument} \ n
-   \end{align*}\(\)
-   Then if we define \(z$ as a parameter of a sound's duration, $z\) could be inversely proportional to the probability of the occurrence of the instrument, so that
-   \[z = \frac{1}{(DA)_i p_n q_r}.\]
-   \(z$ will be at its maximum when $(DA)_i p_n q_r$ is at its minimum, and in this case we could choose $z_{\textrm{max}} = G\).
-
-   Instead of letting \(z_{\textrm{max}} = G$, we shall establish a logarithmic law so as to freeze the growth of $z\).
-   This law applies for any given value of \(z\).
-   \[z' = G \ln{z} / \ln{z_\textrm{max}}\]
-
-   Since we admit a total independence, the distribution of the durations \(x\) will be Gaussian:
-   \[f(x) = \frac{1}{s \sqrt{2 \pi}} \mathrm{e}^{-(x - m)^2/(2s^2)},\]  
-   where \(m$ is the arithmetic mean of the durations, $s\) the standard deviation, and
-   \(\)\begin{align*}
-   m - 4.25s &= 0\\
-   m + 4.25s &= z'
-   \end{align*}\(\)
-   the linear system which furnishes us with the constants \(m\) and \(s\).
-   By assuming \(u = (x-m)/s\sqrt{2}\) we find the function \(T(u)\), for which we consult the tables.
-
-   Finally, the duration \(x\) of the sound will be given by the relation
-   \[x = \pm us\sqrt{2} + m.\]
-
-   We do not take into account incompatibilities between instruments, for this would needlessly burden the machine's program and calculation.
-
-9. *Attribution of dynamic forms to the sounds emitted*.
-   We define four zones of mean intensities: *pp*, *p*, *f*, *ff*.
-   Taken three at a time they yield \(4^3 = 64\) permutations, of which \(44\) are different (an urn with 44 colors); for example, FIX %(*ppp*&#x1D192;*f*&#x1D193;*p*.)
+        We do not take into account incompatibilities between instruments, for this would needlessly burden the machine's program and calculation.
+    \item 
+        \textit{Attribution of dynamic forms to the sounds emitted}.
+        We define four zones of mean intensities: *ppp*, *p*, *f*, *ff*.
+        Taken three at a time they yield \(4^3 = 64\) permutations, of which \(44\) are different (an urn with 44 colors); for example, ppp<f>p.
    <!-- Table of the 44 Intensity Forms Derived from 4 Mean Intensity Values, ppp, p, f, ff -->
-
-10. The same operations are begun again for each sound of the cluster \(N_{a_i}\).
-11. Recalculations ofthe same sort are made for the other sequences.
+    \item 
+        \textit{The same operations are begun again for each sound of the cluster \(N_{a_i}\)}.
+    \item
+        \textit{Recalculations of the same sort are made for the other sequences}.
+\end{enumerate}
 
 An extract from the sequential statement was reproduced in Fig. V-1.
-Now we must proceed to the transcription into Fortran IV, a language "understood" by the machine (see Fig. V-3).
+Now we must proceed to the transcription into Fortran IV, a language ``understood'' by the machine (see Fig. V-3).
 <!-- Fig. V-3. Stochastic Music Rewritten in Fortran IV -->
 <!-- Fig. V-4. Provisional Results of One Phase of the Analysis -->
 <!-- Fig. V-5. Bars 1-5 of ST/10-1,080262 -->
@@ -296,11 +294,12 @@ It is not our purpose to describe the transformation of the flow chart into Fort
 However, it would be interesting to show an example of the adaptation of a mathematical expression to machine methods.
 
 Let us consider the elementary law of probability (density function)
-\[ f(x) \, dx = c\mathrm{e}^{-cx} \, dx.\]
-How shall we proceed in order for the computer to give us lengths \(x$ with the probability $f(x) \, dx$? The machine can only draw random numbers $y_0$ with equiprobability between $0$ and $1\).
-We shall "modulate" this probability: Assume some length \(x_0\); then we have
+\[ f(x) \, \mathrm{d}x = c\mathrm{e}^{-cx} \, \mathrm{d}x.\]
+How shall we proceed in order for the computer to give us lengths \(x\) with the probability \(f(x) \, \mathrm{d}x\)?
+The machine can only draw random numbers \(y_0\) with equiprobability between \(0\) and \(1\).
+We shall ``modulate'' this probability: Assume some length \(x_0\); then we have
 \[\operatorname{prob}{(0 \leq x \leq x_0)} = \int_0^{x_0} f(x) \, \mathrm{d}x = 1 - \mathrm{e}^{-cx_0} = F(x_0),\]
-where \(F(x_0)$ is the distribution function of $x\).
+where \(F(x_0)\) is the distribution function of \(x\).
 But
 \[F(x_0) = \operatorname{prob}{(0 \leq y \leq y_0)} = y_0\]
 then
@@ -316,8 +315,8 @@ The final phase is the decoding of the results into traditional notation, unless
 
 \subsection*{Conclusions}
 
-A large number of compositions of the same kind as *ST/10-1, 080262* is possible for a large number of orchestral combinations.
-Other works have already been written: *ST/48-1, 240162*, for large orchestra, commissioned by RTF (France III); *Atrées* for ten soloists; and *Morisma-Amorisima*, for four soloists.
+A large number of compositions of the same kind as \textit{ST/10-1, 080262} is possible for a large number of orchestral combinations.
+Other works have already been written: \textit{ST/48-1, 240162}, for large orchestra, commissioned by RTF (France III); \textit{Atrées} for ten soloists; and \textit{Morisma-Amorisima}, for four soloists.
 
 Although this program gives a satisfactory solution to the minimal structure, it is, however, necessary to jump to the stage of pure composition by coupling a digital-to-analogue converter to the computer.
 The numerical calculations would then be changed into sound, whose internal organization had been conceived beforehand.
@@ -325,16 +324,21 @@ At this point one could bring to fruition and generalize the concepts described 
 
 The following are several of the advantages of using electronic computers in musical composition:
 
-1. The long laborious calculation made by hand is reduced to nothing.
-   The speed of a machine such as the IBM-7090 is tremendous---of the order of 500,000 elementary operations/sec.
-
-2. Freed from tedious calculations the composer is able to devote himself to the general problems that the new musical form poses and to explore the nooks and crannies of this form while modifying the values of the input data.
-   For example, he may test all instrumental combinations from soloists to chamber orchestras, to large orchestras.
-   With the aid of electronic computers the composer becomes a sort of pilot: he presses the buttons, introduces coordinates, and supervises the controls of a cosmic vessel sailing in the space of sound, across sonic constellations and galaxies that he could formerly glimpse only as a distant dream.
-   Now he can explore them at his ease, seated in an armchair.
-3. The program, i.e., the list of sequential operations that constitute the new musical form, is an objective manifestation of this form.
-   The program may consequently be dispatched to any point on the earth that possesses computers of the appropriate type, and may be exploited by any composer pilot.
-4. Because of certain uncertainties introduced in the program, the composer-pilot can instill his own personality in the sonic result he obtains.
+\begin{enumerate}
+    \item
+        The long laborious calculation made by hand is reduced to nothing.
+        The speed of a machine such as the IBM-7090 is tremendous---of the order of 500,000 elementary operations/sec.
+    \item
+        Freed from tedious calculations the composer is able to devote himself to the general problems that the new musical form poses and to explore the nooks and crannies of this form while modifying the values of the input data.
+        For example, he may test all instrumental combinations from soloists to chamber orchestras, to large orchestras.
+        With the aid of electronic computers the composer becomes a sort of pilot: he presses the buttons, introduces coordinates, and supervises the controls of a cosmic vessel sailing in the space of sound, across sonic constellations and galaxies that he could formerly glimpse only as a distant dream.
+        Now he can explore them at his ease, seated in an armchair.
+    \item 
+        The program, i.e., the list of sequential operations that constitute the new musical form, is an objective manifestation of this form.
+        The program may consequently be dispatched to any point on the earth that possesses computers of the appropriate type, and may be exploited by any composer pilot.
+    \item 
+        Because of certain uncertainties introduced in the program, the composer-pilot can instill his own personality in the sonic result he obtains.
+\end{enumerate}
 
 \lstset{language=[77]Fortran,
     basicstyle=\ttfamily\footnotesize,
@@ -352,17 +356,11 @@ The following are several of the advantages of using electronic computers in mus
 %     \label{fig:fortran}
 % \end{figure}
 
-
-\begin{figure}
-    \centering
-
-    \caption{\textit{ST/10-1, 080262}, Composition of the Orchestra}
-    % \newline \(Density = (DA)_i = 0.11 \mathrm{e}^U\), \(U = \log_e {DA/0.11}\)}
-    \label{fig:composition}
-\end{figure}
-
+\lstinputlisting{fig/fig-4.txt}
 
 % \begin{figure}
+%     \centering
+
 %     \lstinputlisting{fig/fig-4.txt}
 %     \caption{Provisional Results of One Phase of the Analysis}
 % \end{figure}
@@ -372,6 +370,13 @@ The following are several of the advantages of using electronic computers in mus
 \subsection*{Two Laws of Continuous Probability}
 
 \subsubsection*{First Law}
+
+\[P_x = c \mathrm{e}^{-cx} \, \mathrm{d}x.\]
+
+Let \(OA\) be a segment of a straight line of length \(\ell\) on which we place \(n\) points.
+Their linear density is \(c = n/\ell\).
+Suppose that \(\ell\) and \(n\) increase indefinitely while \(c\) remains constant.
+Suppose also that these points are numbered \(A_1, A_p, A_q, \dots\) and are distributed from left to right beginning at the origin \(0\).
 
 \subsubsection*{Second Law}
 
