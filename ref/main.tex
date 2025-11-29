@@ -4,6 +4,7 @@
 % input
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+% \usepackage{fontspec}
 
 % font
 \usepackage{lmodern}
@@ -21,7 +22,13 @@
 
 % figures
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 \usepackage{listings}
+\usepackage{siunitx}
+\usepackage{threeparttable}
+% \usepackage{lilyglyphs}
+\usepackage{graphicx}
+\usepackage{caption}
 
 % title
 \title{Excerpts from Formalized Music}
@@ -130,9 +137,9 @@ In the first chapter we set out the entire synthetic method of this minimal stru
 Since the machine is an iterative apparatus and performs these iterations with extraordinary speed, the thesis had to be broken down into a sequential series of operations reiterated in loops.
 An excerpt from the first flow chart is shown in \hyperref[fig:flow-chart]{Fig. V-1}.
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
-    A figure?
+    \resizebox{.95\linewidth}{!}{\input{fig/fig-1.tex}}
     \caption{Excerpt from the First Flow Chart of Achorripsis}
     \label{fig:flow-chart}
 \end{figure}
@@ -170,15 +177,24 @@ The statement of the thesis of \textit{Achorripsis} receives its first machine-o
     \item 
         \textit{Composition \(Q\) of the orchestra during sequence \(a_i\)}.
         First the instruments are divided into \(r\) classes of timbres, e.g., flutes and clarinets, oboes and bassoons, brasses, bowed strings, pizzicati, col legno strokes, glissandi, wood, skin, and metal percussion instruments, etc. (See the table for \textit{Atrées}.)
+        \begin{table}[htb]
+            \centering
+            % \caption{ \\
+            % Timbre classes and instruments as on present input data}
+            \caption{
+                Composition of the Orchestra for \textit{Atrées} (ST/10-3,060962) \\
+                Timbre classes and instruments as on present input data}
+            \include{tbl/tbl-1}
+        \end{table}
         The composition of the orchestra is stochastically conceived, i.e., the distribution of the classes is not deterministic.
         Thus during a sequence of duration \(a_i\) it may happen that we have 80\% pizzicati, 10\% percussion, 7\% keyboard, and 3\% flute class.
         Under actual conditions the determining factor which would condition the composition of the orchestra is density.
         We therefore connect the orchestral composition with density by means of a special diagram.
         An example from \textit{ST/10-1, 080262} is shown in \hyperref[fig:composition]{Fig. V-2}.
 
-        \begin{figure}
+        \begin{figure}[htb]
             \centering
-        
+            \input{fig/fig-2}
             \caption{\textit{ST/10-1, 080262}, Composition of the Orchestra}
             % \newline \(Density = (DA)_i = 0.11 \mathrm{e}^U\), \(U = \log_e {DA/0.11}\)}
             \label{fig:composition}
@@ -365,11 +381,15 @@ The following are several of the advantages of using electronic computers in mus
 %     \caption{Provisional Results of One Phase of the Analysis}
 % \end{figure}
 
+\newpage
+
 \section*{Appendix I}
 
-\subsection*{Two Laws of Continuous Probability}
+\begin{center}
+    \Large Two Laws of Continuous Probability
+\end{center}
 
-\subsubsection*{First Law}
+\subsection*{First Law}
 
 \[P_x = c \mathrm{e}^{-cx} \, \mathrm{d}x.\]
 
@@ -377,9 +397,150 @@ Let \(OA\) be a segment of a straight line of length \(\ell\) on which we place 
 Their linear density is \(c = n/\ell\).
 Suppose that \(\ell\) and \(n\) increase indefinitely while \(c\) remains constant.
 Suppose also that these points are numbered \(A_1, A_p, A_q, \dots\) and are distributed from left to right beginning at the origin \(0\).
+Let
+\[x_1 = A_1 A_p, \quad x_2 = A_p A_q, \quad x_3 = A_q A_r, \dots, x_i = A_s A_t.\]
+The probability that the \(i\)-th segment will have a length \(x_i\) between \(x\) and \(x + dx\) is
+\[P_x = c\mathrm{e}^{-cx} \, \mathrm{d}x.\]
 
-\subsubsection*{Second Law}
+Now the probability \(p_n\), that there will be \(n\) points on a segment \(x\) is given by the recurrence formula
+\[\frac{p_{n+1}}{p_n} = \frac{cx}{n+1} .\]
+Therefore \(p_1 = (cx/1)p_0\).
+But \(p_0 = \mathrm{e}^{cx}\) and
+\[\mathrm{e}^{-cx} = 1 - \frac{cx}{1!} + \frac{(cx)^2}{2!} - \frac{(cx)^3}{3!} + \cdots .\]
+If \(x\) is very small and if we denote it by \(dx\), we have
+\[p_0 = 1 - c dx + \frac{c^2 (dx)^2}{2!} - \cdots .\]
+Since the powers of \(dx\) are infinitely small for high values, \(p_0 = 1 - c dx\) and \(p_1 = c dx p_0 = c dx\).
+Hence, the probability \(P_x\) is composed of the probability \(p_0 = \mathrm{e}^{-cx}\), that there will be no point on the segment \(x\), and the probability \(p_1 = c dx\), that there will be a point in \(dx\).
+
+\subsubsection*{Approximate Calculation of the Same Probability (For Calculation by Hand)}
+
+Let there be \( d \) points to be placed on a straight line of length \( \ell \).
+The linear density is \( c = d / \ell \) points on length \( \ell \).
+If the lengths are expressed in units \( v \) then \( l = av \) (\( a > 0 \)) and \( cv = d / a \) points in the unit of length \( v \).
+
+Then \( x_i = iv \) (\( i = 0, 1, 2, 3, \dots \)), and the probability, the asymptotic limit of the relative frequency of the segment \( x_i \), will be
+\[
+    \mathrm{P}_{x_i} = c \mathrm{e}^{-civ} \Delta x_i .
+    \tag{1}
+    \label{eq:1-1}
+\]
+
+We shall now define the quantity \( \Delta x_i \).
+The probability \eqref{eq:1-1} is composed of the probability \( p_0 = \mathrm{e}^{-civ} \), that there will be no point on \( x_i \), and the probability \( p_1 = c \Delta x_i \) that there will be a point in \( \Delta x_i \) if \( ( c \Delta x_i )^2 \) is small enough to be ignored.
+Set
+\[ 0 < (c \Delta x_i)^2 < w 10^{-n}, \]
+where \( n \) is a sufficiently large natural number; this expression becomes
+\[ 0 < \Delta x_i < c^{-1} \cdot 10^{-n/2} . \]
+Substitute a constant \( z \) for \( \Delta x_i \) such that for every \( x_i \)
+\[
+    z \leq \Delta x_i < c^{-1} \cdot 10^{-n/2} .
+    \tag{2}
+    \label{eq:1-2}
+\]
+Then equation \eqref{eq:1-1} is written
+\[
+    P_{x_i} = \mathrm{e}^{-civ} \cdot cz
+    \tag{3}
+    \label{eq:1-3}
+\]
+and must satisfy the condition
+\[ \sum_{i=0}^\infty cz \mathrm{e}^{-civ} = 1 ,\]
+or
+\[ z = \frac{1}{c} \sum_{i=0}^\infty \mathrm{e}^{-civ} .\]
+But since \( cv > 0 \), \( \mathrm{e}^{-cv} < 1 \), so that
+\[ \sum_{i=0}^\infty \left( \mathrm{e}^{-cv} \right)^i =\frac{1}{1 = \mathrm{e}^{-cv}} \]
+and finally
+\[ z = \frac{1 - \mathrm{e}^{-cv}}{c} .\]
+
+Now from \ref{eq:1-2}
+\[ \frac{1 - \mathrm{e}^{-cv}}{c} < \frac{10^{-n/2}}{c} . \]
+Therefore
+\[ 0 < \left( 1 - \mathrm{e}^{-cv} \right) < 10^{-n/2} , \]
+then
+\[ \left( 1 - 10^{-n/2} \right) < \mathrm{e}^{-cv} < 1 \]
+Thus, for \( cv > 0 \) we have \( \mathrm{e}^{-cv} < 1 \), and for \( cv < - \log{\left( 1 - 10^{-n/2} \right)} \) we have
+\[ - \log{\left( 1 - 10^{-n/2} \right)} = 10^{-n/2} + \frac{10^{-(n/2)2}}{2} + \frac{10^{-(n/2)3}}{3} +  \frac{10^{-(n/2)4}}{4} + \cdots \]
+and
+\[ 10^{-n/2} < - \log{\left( 1 - 10^{-n/2}\right)} .\]
+
+In order that \( \mathrm{e}^{-cv} > 1 - 10^{-n/2} \) it is therefore sufficient that
+\[
+    cv \leq 10^{-n/2}.
+    \tag{4}
+    \label{eq:1-4}
+\]
+Then we may take
+\[
+    \Delta x_i = z = \frac{1 - \mathrm{e}^{-cv}}{c}
+    \tag{5}
+    \label{eq:1-5}
+\]
+and substitute this value in formula \eqref{eq:1-1}, from which we can now set up probability tables.
+Here is an example :
+
+Let \( d = 10 \) points as mean value to be spread on a straight line segment
+of length \( \ell = \qty{100}{\cm} \). We have to define \( x_i \) and \( P_{x_i} \) as a function of \( i \), given that \( \left( c \Delta x_i \right)^2 = 10^{-4} \) is considered to be negligible.
+
+From \eqref{eq:1-4}, \( cv = 10^{-4/2} = 0.01 \) points in \( v \). Now \( c = d / \ell = 10 / 100 points/cm \), therefore \( c = \qty{0.1}{points/\cm} \), \( v = 0.01 / 0.1 = \qty{0.1}{\cm} \), and \( x_i = 0.1 \cdot i cm = i mm \).
+From \eqref{eq:1-5},
+\[\Delta x_i = \frac{1 - \mathrm{e}^{-0.01}}{0.1} = (1 - 0.9905) 10 = 0.0995 = 0.1 \text{cm}. \]
+From (1),
+\[P_{x_i} = \mathrm{e}^{-0.01i} \cdot 0.1 \cdot 0.1 = 0.01 \cdot (0.099005)^i .\]
+For calculation by machine see Chapter V.
 
 
+\subsection*{Second Law}
+
+\[ f(j) \, \mathrm{d}j = \frac{2}{a} \left( 1 - \frac{j}{a} \right) \mathrm{d}j. \]
+
+Each variable (pitch, intensity, density, etc.) forms an interval (distance) with its predecessor.
+Each interval is identified with a segment \( x \) taken on the axis of the variable.
+Let there be two points \( A \) and \( B \) on this axis corresponding to the lower and upper limits of the variable.
+It is then a matter of drawing at random a segment within \( AB \) whose length is included between \( j \) and \( j + \mathrm{d} j \) for \( 0 \leq j \leq AB \).
+Then the probability of this event is:
+\[
+    \mathrm{P}_j = f(j) \, \mathrm{d}j = \frac{2}{a} \left( 1 - \frac{j}{a} \right) \mathrm{d}j
+    \tag{1}
+    \label{eq:2-1}
+\]
+for \( a = AB \).
+
+
+\subsubsection*{Approximate Definition of this Probability for Calculation by Hand}
+
+By taking \( \mathrm{d}j \) as a constant and \( j \) as discontinuous we set \( \mathrm{d}j = c \), \( j = iv \) with \( v = a / m \) for \( i = 0, 1, 2, 3, \dots, m \).
+Equation \eqref{eq:2-1} becomes
+\[
+     \mathrm{P}_j = \frac{2}{a} \left( 1 - \frac{iv}{a} \right) c.
+    \tag{2}
+    \label{eq:2-2}
+\]
+But
+\[
+    \sum_{i=0}^{m} \mathrm{P}_j = \frac{2c}{a} (m + 1) - \frac{2cv}{a^2} \sum_{i=0}^{m} i = \frac{2c (m+1)}{a} - \frac{2cvm (m+1)}{2a^2} = 1,
+\]
+whence
+\[ \mathrm{d}j = c = \frac{a}{m + 1} .
+\]
+
+On the other hand \( \mathrm{P}_j \) must be taken as a function of the decimal approximation required:
+\[ \mathrm{P}_j = \frac{2}{m + 1} \left( 1 - \frac{i}{m} \right) \quad (n = 0, 1, 2, 3, \dots) . \]
+\( P_j \) is at a maximum when \( i = 0 \), whence \( m \geq 2 \cdot 10^n - 1 \); so for \( m = 2 \cdot 10^n - 1 \) we have \( v = a / (2 \cdot 10^n - 1 ) \) and \( \mathrm{d}j = a / (2 \cdot 10^n) \), and \eqref{eq:2-1} becomes
+\[ P_j = P_i = \frac{1}{10^n} \left( 1 - \frac{i}{2 \cdot 10^n - 1} \right). \]
+
+
+\subsubsection*{Definition of the Same Probability for Computer Calculation}
+
+We know that the computer can only draw numbers \( y_0 \) at random (of equal probability) \( 0 \leq y_0 \leq 1 \).
+Using the probability law of density \( P_j = f(j) \, \mathrm{d}j \), we have for some interval \( x_0 \)
+\[ \operatorname{prob.}{(0 \leq j \leq x_0)} = \int_0^{x_0} f(j) \, \mathrm{d}j = \frac{2x_0}{a} - \frac{x_0^2}{a^2} = F(x_0), \]
+where \( F(x_0) \) is the distribution function of \( j \).
+But \( F(x_0) = \operatorname{prob.}{(0 \leq y \leq y_0)} = y_0 \).
+Therefore
+\[ \frac{2x_0}{a} - \frac{x_0^2}{a^2} = y_0 \quad \text{and} \quad x_0 = a \left( 1 \pm \sqrt{1 - y_0} \right), \]
+and by rejecting the positive root, since \( x_0 \) must remain smaller than \( a \), we
+obtain
+\[ x_0 = a \left( 1 - \sqrt{1 - y_0} \right) \]
+for all \( 0 \leq x_0 \leq a \).
 
 \end{document}
