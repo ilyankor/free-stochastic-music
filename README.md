@@ -1,7 +1,7 @@
 # Free Stochastic Music by Computer
 
 This is a recreation of the Fortran IV program documented in Xenakis' Formalized
-Music, Chapter 5: Free Stochastic Music by Computer ![1](#citation).
+Music, Chapter 5: Free Stochastic Music by Computer [1](#citation).
 
 ## Reference materials
 
@@ -129,6 +129,7 @@ the individual sections, see `test`.
   [working version of the original source](https://github.com/ThemosTsikas/XenakisFreeStochasticMusicFortran)
   to reference.
 
+<a id="citation-link"></a>
 ## Citation
 
 1. Xenakis, Iannis. 1992. *Formalized Music: Thought and Mathematics in Composition*, second, revised English edition, with additional material translated by Sharon Kanach. Harmonologia Series No. 6. Stuyvesant, NY: Pendragon Press.
