@@ -1,19 +1,9 @@
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
+# Python
+.venv/
 
 # MacOS
 .DS_Store
 
-# Output files
+# output and temporary files
+out/
 temp/
-fsm
-output
-ex/test.txt
