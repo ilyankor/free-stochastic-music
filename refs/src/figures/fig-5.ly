@@ -153,8 +153,10 @@ clarinetMusic = \relative c' {
     d4 _\! _\p fis _\f _\> gisih, _\! _\p r |
 
     \tuplet 5/4 { r4. gis,4 _\p } ees'2~ ~ _\! _\pp _\<
-
-    \pageBreak | es1 _\!
+        
+    \stopStaff
+    \hide NoteHead
+    es1 _\!
 
 }
 
@@ -173,7 +175,7 @@ hornIMusic = \relative c'' {
     r16 fis4.. _\pp \tuplet 6/4 { r4 d'8 _\p [ fis,~ ] 4~ } |
     fis8 gis8. cis16 _\ff fis,8 _\p \tuplet 6/4 { r4 d' _\pp r }
 
-    \pageBreak | s1
+    \stopStaff |
 }
 
 hornIIMusic = \relative c {

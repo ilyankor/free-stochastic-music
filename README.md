@@ -24,10 +24,10 @@ To compile,
 
 ```zsh
 cd ./refs/src
-lualatex --shell-escape main.tex
+lualatex --shell-escape ./main.tex
 latexmk -c
-rm -r tmp-ly
-mv main.pdf ../excerpt.pdf
+rm -r ./tmp-ly
+mv ./main.pdf ../excerpt.pdf
 ```
 
 ## Program
@@ -68,12 +68,12 @@ the individual sections, see `test`.
 - typsetting the reference: :x:
 
   - Chapter 5 text: :x:
-  - Figure 1: :x:
-  - Figure 2: :x:
+  - Figure 1: :white_check_mark:
+  - Figure 2: :white_check_mark:
   - Figure 3: :x:
   - Figure 4: :x:
   - Figure 5: :x:
-  - Table 1: :x:
+  - Table 1: :white_check_mark:
   - Table 2: :x:
   - Appendix 1: :x:
 

@@ -1,4 +1,5 @@
 \begin{tikzpicture}[xscale=0.1,yscale=-0.1]
+% yscale is set to negative due to conversion from SVG
 
 % style
 \tikzset{
@@ -14,11 +15,10 @@
 \draw[baseLine] (63.5,147.5) -- ++(5.5, -5.5) -- ++(5.5, 5.5) -- ++(-5.5, 5.5) -- cycle;
 \draw[baseLine] (87.5,167.5) -- ++(5.5, -5.5) -- ++(5.5, 5.5) -- ++(-5.5, 5.5) -- cycle;
 
-\node at (69, 18.2) {CLASS}; \node[scale=1.1] at (69,21.2) {$r$};
+\node at (69, 18.2) {CLASS}; \node[scale=1.1] at (69, 21.2) {$ r $};
 \node at (69, 76.7) {KEY};   \node at (69,79.7) {1};
 \node at (93, 87.7) {KEY};   \node at (93,90.7) {2};
-\node at (69,147.5) {VIGL};
-\node[scale=1.1] at (93,167.5) {$j$};
+\node at (69,147.5) {VIGL};  \node[scale=1.1] at (93,167.5) {$ j $};
 
 % rectangles
 \foreach \x/\y/\w/\h in {
@@ -38,27 +38,27 @@
     \draw[baseLine] (\x,\y) rectangle ++(\w,\h);
 }
 
-\node at (69,33.5) {Take random number $\rightarrow j$};
-\node at (69,46.5) {Consult table $\theta ( \lambda ) \rightarrow \lambda $};
-\node[align=left] at (123,43.5) {Table: \\ \quad $\theta ( \lambda ) $ function \\ \quad $250$ values};
-\node at (69,61) {$\displaystyle \lambda = \frac{1}{100} \left[ \xi - \frac{\theta_{\xi} - j \cdot 10^{-6}}{\theta_\xi - \theta_{\xi - 1}} \right]$};
-\node at (69,99.5) {Take random number $k$};
-\node at (21,114) {$\displaystyle \alpha = \sqrt{\pi} \left[ 10 + \frac{20}{7} \log{\left(\frac{\mathrm{DA}}{0.13} \right)} \right]$};
-\node at (69,113.6) {$\displaystyle \alpha = 17.7 + 35.5k\cdot 10^{-3}$};
-\node at (117,114) {$\displaystyle \alpha = \sqrt{\pi} \left[ 30 - \frac{20}{7} \log{\left(\frac{\mathrm{DA}}{0.13} \right)} \right]$};
-\node at (69,132.5) {$\text{VIGL} = \alpha \cdot \lambda$};
-\node at (45,157.5) {$\text{VIGL} = 75$};
-\node at (117,177.5) {$\text{VIGL} = -\text{VIGL}$};
-\node at (152,177.5) {$\text{VIGL} = 0$};
+\node at ( 69, 33.5) {Take random number $ \rightarrow j $};
+\node at ( 69, 46.5) {Consult table $ \theta ( \lambda ) \rightarrow \lambda $};
+\node[align=left] at (123,43.5) {Table: \\ \quad $ \theta ( \lambda ) $ function \\ \quad $ 250 $ values};
+\node at ( 69, 61.0) {$ \displaystyle \lambda = \frac{1}{100} \left[ \xi - \frac{\theta_{\xi} - j \cdot 10^{-6}}{\theta_\xi - \theta_{\xi - 1}} \right] $};
+\node at ( 69, 99.5) {Take random number $ k $};
+\node at ( 21,114.0) {$ \displaystyle \alpha = \sqrt{\pi} \left[ 10 + \frac{20}{7} \log{\left(\frac{\mathrm{DA}}{0.13} \right)} \right] $};
+\node at ( 69,113.6) {$ \displaystyle \alpha = 17.7 + 35.5k\cdot 10^{-3} $};
+\node at (117,114.0) {$ \displaystyle \alpha = \sqrt{\pi} \left[ 30 - \frac{20}{7} \log{\left(\frac{\mathrm{DA}}{0.13} \right)} \right] $};
+\node at ( 69,132.5) {$ \text{VIGL} = \alpha \cdot \lambda $};
+\node at ( 45,157.5) {$ \text{VIGL} = 75 $};
+\node at (117,177.5) {$ \text{VIGL} = -\text{VIGL} $};
+\node at (152,177.5) {$ \text{VIGL} = 0 $};
 
 % lines
-\draw[baseLine] (8,7) -- (27,7);
-\draw[baseLine] (61,5) -- (77,5);
-\draw[baseLine] (144,5) -- (160,5);
-\draw[baseLine] (69,136) -- ( 69,142);
+\draw[baseLine] (  8,  7) -- ( 27,  7);
+\draw[baseLine] ( 61,  5) -- ( 77,  5);
+\draw[baseLine] (144,  5) -- (160,  5);
+\draw[baseLine] ( 69,136) -- ( 69,142);
 
-\node[scale=1.75] at (26,4) {\textit{glissandi} (VIGL)}; \node[scale=1.75] at (17.5,10) {VII};
-\node[scale=1.375] at (69,3) {from VI}; \node[scale=1.375] at (65,8) {VII}; \node[scale=1.375] at (73,8) {A};
+\node[scale=1.750] at ( 26,4) {\textit{glissandi} (VIGL)}; \node[scale=1.75] at (17.5,10) {VII};
+\node[scale=1.375] at ( 69,3) {from VI}; \node[scale=1.375] at ( 65,8) {VII}; \node[scale=1.375] at ( 73,8) {A};
 \node[scale=1.375] at (152,3) {from VI}; \node[scale=1.375] at (148,8) {VII}; \node[scale=1.375] at (156,8) {B};
 
 % arrows
@@ -86,24 +86,25 @@
 \draw[arrowLine] (152,181) -- ++(0,5) -- (69.1,186);
 \draw[arrowLine] (69,213) -- ++(0,5.9);
 
-\node at (66,26) {$=5$};
-\node at (113,17) {$\neq 5$};
+\node at (66,26) {$ =5 $};
+\node at (113,17) {$ \neq 5 $};
 \node at (127,60) {
-$
-\begin{aligned}
-    &\theta_{\xi - 1} < j \cdot 10^{-6} \leq \theta_{\xi} \\
-    &\xi - 100 \lambda = \frac{\theta_{\xi} - j \cdot 10^{-6}}{\theta_\xi - \theta_{\xi - 1}}
-\end{aligned}
-$};
+    $
+    \begin{aligned}
+        &\theta_{\xi - 1} < j \cdot 10^{-6} \leq \theta_{\xi} \\
+        &\xi - 100 \lambda = \frac{\theta_{\xi} - j \cdot 10^{-6}}{\theta_\xi - \theta_{\xi - 1}}
+    \end{aligned}
+    $
+};
 \node at (23,75.5) {EF};
 \node at (91,75.5) {HF};
 \node at (71,86.5) {EF};
 \node at (115,86.5) {HF};
-\node at (54.5,145.5) {$75 \leq$};
-\node at (83.5,145.5) {$<75$};
+\node at (54.5,145.5) {$ 75 \leq $};
+\node at (83.5,145.5) {$ <75 $};
 \node at (73,165.5) {EVEN};
 \node at (113.5,165.5) {ODD};
-\node[scale=1.375] at (69,221) {TO VII};
+\node[scale=1.375] at (69,221) {To VII};
 
 % ending shape
 \draw[baseLine]
@@ -114,14 +115,15 @@ $};
   -- cycle;
 
 \node at (65,202) {
-$
-\begin{aligned}
-    &j = \\
-    &\lambda = \\
-    &\text{KEY} = \\
-    &\alpha = \\
-    &\text{VIGL} = \\
-\end{aligned}
-$};
+    $
+    \begin{aligned}
+        &j = \\
+        &\lambda = \\
+        &\text{KEY} = \\
+        &\alpha = \\
+        &\text{VIGL} = \\
+    \end{aligned}
+    $
+};
 
 \end{tikzpicture}
