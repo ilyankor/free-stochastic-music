@@ -1,7 +1,6 @@
 # Python
 .venv/
-
-# MacOS
+.vscode/ 
 .DS_Store
 
 # output and temporary files

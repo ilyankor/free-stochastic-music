@@ -1,0 +1,41 @@
+\renewcommand{\arraystretch}{2}
+\newcommand{\createDynamics}[1]{
+    \lilypond[staffsize=26]{
+        \new Dynamics {
+            \override DynamicText.X-offset = 0
+            #1
+        }
+        \layout {
+            \context {
+                \Score
+                \override SpacingSpanner.spacing-increment = 6
+            }
+        }
+    }
+}
+
+\begin{tabular}{cc}
+
+\createDynamics{ s1\ppp\< s1\!\ppp }           & \createDynamics{ s1\f\> s1\!\p }             \\
+\createDynamics{ s1\ppp\< s1\!\p }             & \createDynamics{ s1\p\< s1\!\ff }            \\
+\createDynamics{ s2\ppp\< s2\!\p\> s1\!\ppp }  & \createDynamics{ s2\p\< s2\!\ff\> s1\!\p }   \\
+\createDynamics{ s1\p\> s1\!\ppp }             & \createDynamics{ s1\ff\> s1\!\p }            \\
+\createDynamics{ s1\ppp\< s1\!\f }             & \createDynamics{ s2\ppp\< s2\!\ff\> s1\!\f } \\
+\createDynamics{ s2\ppp\< s2\!\f\> s1\!\ppp }  & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s1\f\> s1\!\ppp }             & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s1\ppp\< s1\!\ff }            & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\ppp\< s2\!\ff\> s1\!\ppp } & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s1\ff\> s1\!\ppp }            & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\ppp\< s2\!\f\> s1\!\p }    & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\f\> s2\!\ppp\< s1\!\p }    & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\p\< s2\!\f\> s1\!\ppp }    & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\p\> s2\!\ppp\< s1\!\f }    & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\ppp\< s2\!\ff\> s1\!\p }   & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\ff\> s2\!\ppp\< s1\!\p }   & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\p\> s2\!\ppp\< s1\!\ff }   & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\p\< s2\!\ff\> s1\!\ppp }   & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s1\p\< s1\!\p }               & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\p\> s2\!\ppp\< s1\!\p }    & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s1\p\< s1\!\f }               & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\createDynamics{ s2\p\< s2\!\f\> s1\!\p }      & \createDynamics{ s1\ppp\< s1\!\ppp }         \\
+\end{tabular}

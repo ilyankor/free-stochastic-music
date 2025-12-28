@@ -8,14 +8,26 @@ Music, Chapter 5: Free Stochastic Music by Computer [1](#citation).
 The original source (Chapter 5 and Appendix 1 of the book) is located in `refs`.
 
 - Scans of the pages are in `xenakis.pdf`.
-- LaTeX and LilyPond were used to digitally reconstruct the source in
+- LuaLaTeX and LilyPond were used to digitally reconstruct the source in
   `excerpt.pdf`.
 - Source files for the figures are in `fig`.
+
+Setup for compilation: LaTeX is to be installed with TexLive.
+The LuaLaTeX package ![lyluatex](https://github.com/jperon/lyluatex) should be made available.
+To install `lyluatex` into TexLive,
+
+```zsh
+sudo tlmgr install lyluatex
+```
 
 To compile,
 
 ```zsh
-compilation instructions
+cd ./refs/src
+lualatex --shell-escape main.tex
+latexmk -c
+rm -r tmp-ly
+mv main.pdf ../excerpt.pdf
 ```
 
 ## Program
@@ -61,6 +73,8 @@ the individual sections, see `test`.
   - Figure 3: :x:
   - Figure 4: :x:
   - Figure 5: :x:
+  - Table 1: :x:
+  - Table 2: :x:
   - Appendix 1: :x:
 
 - Fortran IV (`main.f`): :x:
@@ -129,7 +143,6 @@ the individual sections, see `test`.
   [working version of the original source](https://github.com/ThemosTsikas/XenakisFreeStochasticMusicFortran)
   to reference.
 
-<a id="citation-link"></a>
 ## Citation
 
 1. Xenakis, Iannis. 1992. *Formalized Music: Thought and Mathematics in Composition*, second, revised English edition, with additional material translated by Sharon Kanach. Harmonologia Series No. 6. Stuyvesant, NY: Pendragon Press.
